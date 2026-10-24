@@ -8,7 +8,8 @@ Site statique (HTML, CSS, JavaScript), sans dépendance ni étape de build : ouv
 
 - Téléphone, e-mail, zone d'intervention et horaires : section « Contact » de `index.html`
 - Adresse qui reçoit les demandes de devis : `CONTACT_EMAIL` en haut de `script.js`
-- Couleurs : variables en haut de `styles.css`
+- Couleurs de la charte (marine `#233348`, vert d'eau `#5fb3a6`, crème `#f6f3ec`) : variables en haut de `styles.css`
+- Logo : symbole `logo-mark` en haut de `index.html` et fichiers dans `assets/`
 
 ## Mise en ligne
 
