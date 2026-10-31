@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Alpes Luxury Transfert</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" href="img/logo.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <style>
@@ -51,7 +52,9 @@ p{margin:0}
 .header{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--navy);color:#fff}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:41;background:var(--navy)}
 .header .container{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
-.logo{display:flex;flex-direction:column;line-height:1}
+.logo{display:flex;align-items:center;gap:12px;line-height:1}
+.logo span{display:flex;flex-direction:column}
+.logo .mark{width:42px;height:42px;flex:none}
 .logo b{font-size:16px;font-weight:700;letter-spacing:.2em}
 .logo small{font-size:10px;letter-spacing:.38em;opacity:.7;margin-top:4px}
 .nav{display:flex;align-items:center;gap:26px;font-size:15px}
@@ -118,6 +121,15 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 @media (max-width:900px){.grid3{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.grid3{grid-template-columns:1fr}}
 
+.svc{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:4/3;max-width:100%;background:#0A0F18;color:#fff;isolation:isolate}
+.svc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s}
+.svc:hover img{transform:scale(1.06)}
+.svc::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.78));z-index:1}
+.svc .tx{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:20px}
+.svc h3{font-size:20px}
+.svc p{font-size:14px;opacity:.88;margin-top:4px}
+@media (max-width:560px){.svc{aspect-ratio:16/11}}
+
 /* fleet */
 .fleet{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .car{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
@@ -167,7 +179,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 @media (max-width:440px){.form .two{grid-template-columns:1fr}}
 
 footer{background:var(--navy);color:rgba(255,255,255,.75);font-size:14px}
-footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-block:28px}
+footer .container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;padding-block:32px}
+footer .logo{color:#fff}
 
 /* whatsapp */
 .wa{position:fixed;right:max(18px,calc(env(safe-area-inset-right,0px) + 12px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:50;width:58px;height:58px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 10px 24px -6px rgba(0,0,0,.35)}
@@ -179,7 +192,7 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
 
 <header class="header" id="top">
   <div class="container">
-    <a class="logo" href="#top" aria-label="Alpes Luxury Transfert, accueil"><b>ALPES LUXURY</b><small>TRANSFERT</small></a>
+    <a class="logo" href="#top" aria-label="Alpes Luxury Transfert, accueil"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="25" fill="none" stroke="currentColor" stroke-opacity=".3" stroke-width="1.4"/><path d="M13 41 L27 18 L33 28 L38 21 L51 41" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/><path d="M24 23.2 L27 18 L30.2 23.4 L27.6 22 Z" fill="currentColor"/><path d="M18 48 C26 42, 38 50, 46 44" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg><span><b>ALPES LUXURY</b><small>TRANSFERT</small></span></a>
     <nav class="nav" id="nav">
       <a href="#services">Services</a>
       <a href="#flotte">Flotte</a>
@@ -253,12 +266,12 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
         <p>Particuliers, entreprises ou délégations : un seul interlocuteur du départ à l’arrivée.</p>
       </div>
       <div class="grid3">
-        <article class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M2 16l20-6-3-3-6 2-6-5-2 1 4 6-4 1-2-2-1 1z"/></svg></div><h3>Transferts aéroport &amp; gare</h3><p>Genève, Lyon, Chambéry et toutes les gares des Alpes.</p></article>
-        <article class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 20l6-11 4 6 3-4 5 9z"/><circle cx="17" cy="6" r="2"/></svg></div><h3>Stations de ski</h3><p>Courchevel, Méribel, Val d’Isère, Megève, Chamonix…</p></article>
-        <article class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></div><h3>Transport VIP &amp; délégations</h3><p>Convois multi-véhicules et transport protocolaire.</p></article>
-        <article class="card"><div class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M8 10.5h8M12 16v4"/></svg></div><h3>Meet &amp; Greet</h3><p>Accueil à votre nom à l’arrivée, bagages pris en charge.</p></article>
-        <article class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 18h16M6 18a6 6 0 0 1 12 0M12 9V7M10 7h4"/></svg></div><h3>Conciergerie</h3><p>Réservation d’hôtels, restaurants et activités.</p></article>
-        <article class="card"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Mise à disposition</h3><p>Un chauffeur à l’heure ou à la journée.</p></article>
+        <article class="svc"><img src="img/svc-aeroport.jpg" alt="Chauffeur ouvrant la porte d'une Mercedes à l'aéroport" loading="lazy"><div class="tx"><h3>Transferts aéroport &amp; gare</h3><p>Genève, Lyon, Chambéry et toutes les gares des Alpes.</p></div></article>
+        <article class="svc"><img src="img/svc-ski.jpg" alt="Mercedes Classe V devant une station de ski" loading="lazy"><div class="tx"><h3>Stations de ski</h3><p>Courchevel, Méribel, Val d’Isère, Megève, Chamonix…</p></div></article>
+        <article class="svc"><img src="img/svc-vip.jpg" alt="Convoi de trois Mercedes Classe S sur une route de montagne" loading="lazy"><div class="tx"><h3>Transport VIP &amp; délégations</h3><p>Convois multi-véhicules et transport protocolaire.</p></div></article>
+        <article class="svc"><img src="img/svc-meet.jpg" alt="Chauffeur tenant une pancarte d'accueil à l'aéroport" loading="lazy"><div class="tx"><h3>Meet &amp; Greet</h3><p>Accueil à votre nom à l’arrivée, bagages pris en charge.</p></div></article>
+        <article class="svc"><img src="img/svc-concierge.jpg" alt="Salon d'un chalet de luxe avec vue sur les montagnes" loading="lazy"><div class="tx"><h3>Conciergerie</h3><p>Hôtels, chalets, restaurants et activités réservés pour vous.</p></div></article>
+        <article class="svc"><img src="img/svc-dispo.jpg" alt="Banquette arrière en cuir d'une Mercedes Classe S la nuit" loading="lazy"><div class="tx"><h3>Mise à disposition</h3><p>Un chauffeur à l’heure ou à la journée.</p></div></article>
       </div>
     </div>
   </section>
@@ -330,6 +343,15 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
         <details><summary>Les sièges enfant sont-ils fournis ?</summary><p>Oui, sur demande au moment de la réservation, gratuitement.</p></details>
         <details><summary>Les véhicules sont-ils équipés pour la neige ?</summary><p>Tous nos véhicules ont des pneus hiver et des chaînes à bord de novembre à avril.</p></details>
         <details><summary>Comment puis-je payer ?</summary><p>Carte bancaire, virement ou espèces. Une facture vous est envoyée après la course.</p></details>
+        <details><summary>Combien de temps à l’avance dois-je réserver ?</summary><p>Idéalement 24 h avant. Pour une demande urgente, appelez-nous ou écrivez-nous sur WhatsApp : nous trouvons souvent un chauffeur dans l’heure.</p></details>
+        <details><summary>Le prix peut-il changer le jour du trajet ?</summary><p>Non. Le prix confirmé à la réservation est fixe : péages, carburant et attente liée au retard du vol sont inclus.</p></details>
+        <details><summary>Combien de temps le chauffeur m’attend-il ?</summary><p>60 minutes gratuites après l’atterrissage à l’aéroport, 15 minutes pour une prise en charge à une adresse.</p></details>
+        <details><summary>Puis-je emporter mes skis et beaucoup de bagages ?</summary><p>Oui. Précisez-le à la réservation : la Classe V et le Sprinter accueillent skis, snowboards et grandes valises.</p></details>
+        <details><summary>Comment annuler ou modifier ma réservation ?</summary><p>Par téléphone, email ou WhatsApp. L’annulation est gratuite jusqu’à 24 h avant le départ.</p></details>
+        <details><summary>Où le chauffeur m’attend-il à l’aéroport de Genève ?</summary><p>Dans le hall des arrivées, côté France ou côté Suisse selon votre choix, avec une pancarte à votre nom.</p></details>
+        <details><summary>Faites-vous des trajets longue distance ?</summary><p>Oui : Paris, Côte d’Azur, Italie et Suisse, en aller simple ou aller-retour.</p></details>
+        <details><summary>Les chauffeurs parlent-ils plusieurs langues ?</summary><p>Nos chauffeurs parlent français et anglais. Des chauffeurs arabophones sont disponibles sur demande.</p></details>
+        <details><summary>Proposez-vous des tarifs pour les entreprises et agences ?</summary><p>Oui, avec facturation mensuelle et un interlocuteur dédié. Contactez-nous pour ouvrir un compte.</p></details>
       </div>
     </div>
   </section>
@@ -360,7 +382,7 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
 </main>
 
 <footer>
-  <div class="container"><span>© 2026 Alpes Luxury Transfert</span><span>Maquette · photos générées par IA · coordonnées fictives</span></div>
+  <div class="container"><a class="logo" href="#top"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="25" fill="none" stroke="currentColor" stroke-opacity=".3" stroke-width="1.4"/><path d="M13 41 L27 18 L33 28 L38 21 L51 41" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/><path d="M24 23.2 L27 18 L30.2 23.4 L27.6 22 Z" fill="currentColor"/><path d="M18 48 C26 42, 38 50, 46 44" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg><span><b>ALPES LUXURY</b><small>TRANSFERT</small></span></a><span>© 2026 Alpes Luxury Transfert</span><span>Maquette · photos générées par IA · coordonnées fictives</span></div>
 </footer>
 
 <a class="wa" href="https://wa.me/33600000000" aria-label="Nous écrire sur WhatsApp">
