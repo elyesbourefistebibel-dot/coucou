@@ -1,5 +1,9 @@
 /* Traductions FR -> [EN, AR]. Les noms propres (stations, Mercedes) ne sont pas traduits. */
 window.I18N = {
+"N° de vol ou de train":["Flight or train number","رقم الرحلة أو القطار"],
+"PH:ex. EZS 1452 (facultatif)":["e.g. EZS 1452 (optional)","مثال: EZS 1452 (اختياري)"],
+"Suivi activé : votre chauffeur s’adapte à l’heure réelle d’arrivée.":["Tracking on: your chauffeur adjusts to the actual arrival time.","تم تفعيل التتبع: يتكيف سائقك مع موعد الوصول الفعلي."],
+"@fl":["flight {x} tracked","الرحلة {x} متابَعة"],
 "Services":["Services","الخدمات"],
 "Flotte":["Fleet","الأسطول"],
 "Destinations":["Destinations","الوجهات"],
@@ -249,6 +253,7 @@ window.I18N_FR = {
 "@dp_h":"{n} heures",
 "@dp_s":"Chauffeur dédié, arrêts illimités.",
 "@pax":"passager(s)",
+"@fl":"vol {x} suivi",
 "@book_mock":"Maquette : aucune demande envoyée.",
 "@sign_ph":"Votre nom"
 };

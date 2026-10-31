@@ -83,10 +83,12 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 }
 
 /* hero */
-.hero{position:relative;color:#fff;background:#0A0F18 url("film/h0.jpg") 0 0/200% 400% no-repeat;overflow:hidden}
+.hero{position:relative;color:#fff;background:#0A0F18;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:url("img/hero-desktop.jpg") 60% 80%/cover no-repeat;transform:scaleX(-1)}
+@media (max-width:960px){.hero::before{background-image:url("img/hero-mobile.jpg");background-size:100% auto;background-position:center top;transform:none}.hero .container{row-gap:0!important}.hero .container>div:first-child{min-height:calc(179.2vw*.87 - 32px)}.hero::after{background:linear-gradient(180deg,rgba(8,12,20,.5) 0%,rgba(8,12,20,.15) 30%,rgba(8,12,20,0) 45%,rgba(10,15,24,.9) min(150vw,1100px),#0A0F18 min(180vw,1300px))}}
 .hero canvas{position:absolute;inset:0;width:100%;height:100%}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,12,20,.72) 0%,rgba(8,12,20,.35) 55%,rgba(8,12,20,.15) 100%)}
-.hero .container{position:relative;z-index:2;display:grid;grid-template-columns:1fr 440px;gap:48px;align-items:center;padding-block:72px}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,12,20,.55) 0%,rgba(8,12,20,.25) 45%,rgba(8,12,20,.1) 100%),linear-gradient(90deg,rgba(8,12,20,.45) 0%,rgba(8,12,20,0) 60%)}
+.hero .container{position:relative;z-index:2;display:grid;grid-template-columns:1fr 440px;gap:48px;align-items:start;padding-block:64px 72px}
 .hero h1{font-size:clamp(34px,5.4vw,58px);font-weight:700}
 .hero .lead{font-size:18px;opacity:.9;margin-top:16px;max-width:30em}
 .checks{list-style:none;padding:0;margin:24px 0 0;display:flex;flex-wrap:wrap;gap:8px 20px;font-size:15px;font-weight:500}
@@ -108,6 +110,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .f .in:focus-within{border-color:var(--navy);box-shadow:0 0 0 3px rgba(59,130,246,.2)}
 .f svg{width:18px;height:18px;flex:none;stroke:var(--muted);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .f input,.f select{flex:1;min-width:0;border:0;background:none;color:var(--ink);font:500 15px var(--sans);height:100%;outline:none}
+.fl-ok{display:flex;gap:6px;font-size:13px;font-weight:600;color:#15803D}
+.f .fl-ok span{font-size:13px;color:#15803D}
 .row{display:grid;grid-template-columns:1.4fr 1fr;gap:10px}
 .done{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--soft);font-size:14px}
 .done b{display:block}
@@ -278,7 +282,6 @@ footer .logo{color:#fff}
 
 <main id="home">
   <section class="hero" id="reserver">
-    <canvas id="film" aria-hidden="true"></canvas>
     <div class="container">
       <div>
         <h1>Votre chauffeur privé dans les Alpes</h1>
@@ -296,6 +299,10 @@ footer .logo{color:#fff}
         </label>
         <label class="f" for="to"><span>Vers</span>
           <div class="in"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input id="to" placeholder="Station, hôtel, chalet"></div>
+        </label>
+        <label class="f" for="flight"><span>N° de vol ou de train</span>
+          <div class="in"><svg viewBox="0 0 24 24"><path d="M2 16l20-6-3-3-6 2-6-5-2 1 4 6-4 1-2-2-1 1z"/></svg><input id="flight" placeholder="ex. EZS 1452 (facultatif)" autocomplete="off" autocapitalize="characters"></div>
+          <small class="fl-ok" id="flOk" hidden>✓ <span>Suivi activé : votre chauffeur s’adapte à l’heure réelle d’arrivée.</span></small>
         </label>
         <div class="row">
           <label class="f" for="date"><span>Date</span><div class="in"><input id="date" type="date" value="2026-12-20"></div></label>
@@ -509,34 +516,6 @@ footer .logo{color:#fff}
     });
   });
 
-  /* Vidéo de fond : 61 images (12/s) sur 8 planches 2x4, lecture en fondu + boucle enchaînée */
-  var N = 61, FPS = 12, L = 12, C = N - L, cv = document.getElementById('film'), cx = cv.getContext('2d');
-  var DPR = Math.min(devicePixelRatio || 1, 2), ready = 0, t0 = null;
-  var sheets = [0,1,2,3,4,5,6,7].map(function(i){ var im = new Image(); im.decoding = 'async'; im.onload = function(){ ready++; if (i === 0) poster(); }; im.src = 'film/h' + i + '.jpg'; return im; });
-  function frame(i, alpha){
-    i = Math.max(0, Math.min(N - 1, i));
-    var sh = sheets[Math.floor(i/8)], k = i % 8, sx = (k%2)*960, sy = Math.floor(k/2)*540;
-    if (!sh.complete || !sh.naturalWidth) return;
-    var w = cv.width, h = cv.height, s = Math.max(w/960, h/540), dw = 960*s, dh = 540*s;
-    cx.globalAlpha = alpha; cx.drawImage(sh, sx, sy, 960, 540, (w-dw)/2, (h-dh)/2, dw, dh);
-  }
-  function smooth(x, alpha){ var a = Math.floor(x), k = x - a; frame(a, alpha); if (k > 0.001) frame(a + 1, alpha * k); }
-  function size(){ var r = cv.getBoundingClientRect(); var w = Math.round(r.width*DPR), h = Math.round(r.height*DPR); if (cv.width!==w||cv.height!==h){cv.width=w;cv.height=h;} }
-  function poster(){ size(); frame(0, 1); cx.globalAlpha = 1; }
-  var visible = true;
-  if ('IntersectionObserver' in window) new IntersectionObserver(function(e){ visible = e[0].isIntersecting; }).observe(cv);
-  function draw(ms){
-    if (visible && ready === sheets.length){
-      if (t0 === null) t0 = ms;
-      size();
-      var f = ((ms - t0) / 1000 * FPS) % C;
-      if (f < L){ smooth(f + C, 1); smooth(f, f / L); }
-      else smooth(f, 1);
-      cx.globalAlpha = 1;
-    }
-    if (!reduce) requestAnimationFrame(draw);
-  }
-  if (!reduce) requestAnimationFrame(draw);
 
   /* Réservation */
   var tOne = document.getElementById('t-one'), tRet = document.getElementById('t-ret'), retRow = document.getElementById('retRow');
@@ -561,9 +540,12 @@ footer .logo{color:#fff}
     var when = date ? new Date(date + 'T' + (time || '00:00')).toLocaleString(LANG === 'ar' ? 'ar' : LANG === 'en' ? 'en-GB' : 'fr-FR', {weekday:'short', day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'}) : '';
     d.innerHTML = '';
     var b = document.createElement('b'); b.textContent = tr(car.value) + ' · ' + document.getElementById('pax').value + ' ' + T('@pax');
-    var s = document.createElement('span'); s.textContent = from + ' → ' + dest + ' · ' + when + '. ' + T('@book_mock');
+    var fv = document.getElementById('flight').value.trim().toUpperCase();
+    var s = document.createElement('span'); s.textContent = from + ' → ' + dest + ' · ' + when + (fv ? ' · ' + T('@fl', {x: fv}) : '') + '. ' + T('@book_mock');
     d.append(b, s); d.hidden = false;
   });
+  var flight = document.getElementById('flight'), flOk = document.getElementById('flOk');
+  flight.addEventListener('input', function(){ flOk.hidden = flight.value.trim().length < 3; });
   document.getElementById('cform').addEventListener('submit', function(e){ e.preventDefault(); document.getElementById('cdone').hidden = false; });
   /* ===== Pages services (routage par #nom) ===== */
   var MARK = '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M13 41 L27 18 L33 28 L38 21 L51 41" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><path d="M18 48 C26 42, 38 50, 46 44" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>';
@@ -664,7 +646,7 @@ footer .logo{color:#fff}
     var fromEl = document.getElementById('from');
     if (id === 'transferts'){
       var pt, fl = root.querySelector('#tf-flight'), res = root.querySelector('#tf-res');
-      var upd = function(){ res.innerHTML = '<b>' + esc(pt) + '</b>' + (fl.value ? T('@tf_on', {x: esc(fl.value.toUpperCase())}) : T('@tf_off')); book = {from: pt}; };
+      var upd = function(){ res.innerHTML = '<b>' + esc(pt) + '</b>' + (fl.value ? T('@tf_on', {x: esc(fl.value.toUpperCase())}) : T('@tf_off')); book = {from: pt, flight: fl.value.toUpperCase()}; };
       chips(root, 'pt', function(v){ pt = v; upd(); }); fl.addEventListener('input', upd);
     }
     if (id === 'stations-de-ski'){
@@ -702,6 +684,7 @@ footer .logo{color:#fff}
         if (book.from) fromEl.value = book.from;
         if (book.to) to.value = book.to;
         if (book.car) car.value = book.car;
+        if (book.flight){ var fe = document.getElementById('flight'); fe.value = book.flight; fe.dispatchEvent(new Event('input')); }
         showHome('reserver');
         if (location.hash !== '#reserver') history.replaceState(null, '', '#reserver');
       });
