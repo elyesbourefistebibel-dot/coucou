@@ -7,7 +7,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="icon" href="img/logo.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap">
 <style>
 /* Layout: classic business site (like Duo Clean). Header + video hero with booking card, trust row, services, fleet photos, destinations, 1-2-3, FAQ, contact, footer, WhatsApp button. */
 :root{
@@ -64,6 +64,14 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .lang{display:flex;gap:4px;font-size:13px;font-weight:600}
 .lang button{background:none;border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:8px;padding:4px 8px;font:inherit;cursor:pointer;opacity:.7}
 .lang button[aria-pressed="true"]{opacity:1;background:rgba(255,255,255,.12)}
+.lang--m{display:none;margin-left:auto}
+.logo b,.logo small{white-space:nowrap}
+@media (max-width:440px){.logo{gap:8px}.logo b{font-size:13px;letter-spacing:.12em}.logo small{font-size:9px;letter-spacing:.3em}.logo .mark{width:34px;height:34px}.lang--m button{padding:4px 6px}.header .container{gap:10px}}
+@media (max-width:900px){.lang--m{display:flex}.nav .lang{display:none}}
+[dir="rtl"] .svc .go svg,[dir="rtl"] .btn .arr{transform:scaleX(-1)}
+[dir="rtl"] .svc .tx{padding-right:20px;padding-left:84px}
+[dir="rtl"] .svc .go{right:auto;left:18px}
+[dir="rtl"] body{font-family:"Noto Sans Arabic",var(--sans)}
 .burger{display:none;background:none;border:0;padding:8px;cursor:pointer}
 .burger span{display:block;width:24px;height:2px;background:#fff;margin:5px 0}
 @media (max-width:900px){
@@ -75,7 +83,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 }
 
 /* hero */
-.hero{position:relative;color:#fff;background:#0A0F18 url("film/s3.jpg") 0 0/200% 400% no-repeat;overflow:hidden}
+.hero{position:relative;color:#fff;background:#0A0F18 url("film/h0.jpg") 0 0/200% 400% no-repeat;overflow:hidden}
 .hero canvas{position:absolute;inset:0;width:100%;height:100%}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,12,20,.72) 0%,rgba(8,12,20,.35) 55%,rgba(8,12,20,.15) 100%)}
 .hero .container{position:relative;z-index:2;display:grid;grid-template-columns:1fr 440px;gap:48px;align-items:center;padding-block:72px}
@@ -260,9 +268,10 @@ footer .logo{color:#fff}
       <a href="#flotte">Flotte</a>
       <a href="#destinations">Destinations</a>
       <a href="#faq">FAQ</a>
-      <div class="lang" aria-label="Langue"><button type="button" aria-pressed="true">FR</button><button type="button" aria-pressed="false">EN</button><button type="button" aria-pressed="false">AR</button></div>
+      <div class="lang" aria-label="Langue"><button type="button" data-l="fr" aria-pressed="true">FR</button><button type="button" data-l="en" aria-pressed="false">EN</button><button type="button" data-l="ar" aria-pressed="false">AR</button></div>
       <a class="btn btn--light" href="#reserver">Réserver</a>
     </nav>
+    <div class="lang lang--m" id="lang-m" aria-label="Langue"><button type="button" data-l="fr" aria-pressed="true">FR</button><button type="button" data-l="en" aria-pressed="false">EN</button><button type="button" data-l="ar" aria-pressed="false">AR</button></div>
     <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
   </div>
 </header>
@@ -299,10 +308,10 @@ footer .logo{color:#fff}
         <div class="row">
           <label class="f" for="pax"><span>Passagers</span>
             <div class="in"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5M16 4.8a3.5 3.5 0 0 1 0 6.4M18 14.8c1.8.7 3 2.4 3.5 5.2"/></svg>
-              <select id="pax"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8 et +</option></select></div>
+              <select id="pax"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option value="8+">8 et +</option></select></div>
           </label>
           <label class="f" for="car"><span>Véhicule</span>
-            <div class="in"><select id="car"><option>Classe E</option><option selected>Classe V</option><option>Classe S</option><option>Sprinter</option></select></div>
+            <div class="in"><select id="car"><option value="Classe E">Classe E</option><option value="Classe V" selected>Classe V</option><option value="Classe S">Classe S</option><option value="Sprinter">Sprinter</option></select></div>
           </label>
         </div>
         <button class="btn btn--full" type="submit">Recevoir mon prix</button>
@@ -452,6 +461,7 @@ footer .logo{color:#fff}
   <svg viewBox="0 0 32 32"><path d="M16 3C9 3 3.3 8.6 3.3 15.6c0 2.4.7 4.7 1.9 6.7L3 29l6.9-2.1c1.9 1 4 1.6 6.1 1.6 7 0 12.7-5.7 12.7-12.7S23 3 16 3zm0 23.2c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1.2 1.2-4-.3-.4a10.4 10.4 0 0 1-1.6-5.6C5.4 9.8 10.1 5.2 16 5.2s10.6 4.7 10.6 10.5S21.9 26.2 16 26.2zm5.8-7.8c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2l-1 1.2c-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.6-1.6-1-.8-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.6l.5-.6.3-.5c.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5 2.5 1 3 .8 3.6.7.6-.1 1.9-.8 2.1-1.5.3-.7.3-1.3.2-1.5-.1-.1-.3-.2-.6-.3z"/></svg>
 </a>
 
+<script src="i18n.js"></script>
 <script>
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -460,41 +470,73 @@ footer .logo{color:#fff}
   var burger = document.getElementById('burger'), nav = document.getElementById('nav');
   burger.addEventListener('click', function(){ var o = nav.classList.toggle('open'); burger.setAttribute('aria-expanded', o); });
   nav.addEventListener('click', function(e){ if (e.target.closest('a')){ nav.classList.remove('open'); burger.setAttribute('aria-expanded', false); } });
-  document.querySelectorAll('.lang button').forEach(function(b, i, all){
-    b.addEventListener('click', function(){ all.forEach(function(x){ x.setAttribute('aria-pressed', x === b); }); });
+  /* Langues */
+  var LANG = 'fr', LI = {en:0, ar:1};
+  try { var sv = localStorage.getItem('alt-lang'); if (sv === 'en' || sv === 'ar') LANG = sv; } catch(e){}
+  function T(k, v){
+    var str = LANG === 'fr' ? (window.I18N_FR[k] || k) : ((window.I18N[k] || [])[LI[LANG]] || window.I18N_FR[k] || k);
+    if (v) for (var key in v) str = str.split('{' + key + '}').join(v[key]);
+    return str;
+  }
+  function tr(fr){ if (LANG === 'fr') return fr; var e = window.I18N[fr]; return e ? e[LI[LANG]] : fr; }
+  function applyLang(root){
+    root = root || document.body;
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), n;
+    while ((n = w.nextNode())){
+      if (n.parentElement.closest('script,style,svg,.sign')) continue;
+      if (n.__fr === undefined){ var t = n.nodeValue.trim(); if (!t) continue; n.__fr = t; n.__raw = n.nodeValue; }
+      n.nodeValue = n.__raw.replace(n.__fr, tr(n.__fr));
+    }
+    root.querySelectorAll('[placeholder]').forEach(function(el){
+      if (!el.dataset.fr) el.dataset.fr = el.placeholder;
+      el.placeholder = tr('PH:' + el.dataset.fr) === 'PH:' + el.dataset.fr ? el.dataset.fr : tr('PH:' + el.dataset.fr);
+    });
+    ['from','to'].forEach(function(id){
+      var el = document.getElementById(id), v = el.value; if (!v) return;
+      for (var k in window.I18N){ var e = window.I18N[k]; if (k === v || e[0] === v || e[1] === v){ el.value = tr(k); break; } }
+    });
+    document.documentElement.lang = LANG;
+    document.documentElement.dir = LANG === 'ar' ? 'rtl' : 'ltr';
+    document.querySelectorAll('.lang button').forEach(function(x){ x.setAttribute('aria-pressed', x.dataset.l === LANG); });
+  }
+  document.querySelectorAll('.lang button').forEach(function(b){
+    b.addEventListener('click', function(){
+      LANG = b.dataset.l;
+      try { localStorage.setItem('alt-lang', LANG); } catch(e){}
+      document.getElementById('done').hidden = true;
+      if (!document.getElementById('svcpage').hidden && typeof route === 'function') route();
+      applyLang();
+    });
   });
 
-  /* Vidéo de fond : 30 images (4 planches 2x4) lues en fondu */
-  var N = 30, FPS = 6, cv = document.getElementById('film'), cx = cv.getContext('2d');
-  var sheets = [0,1,2,3].map(function(i){ var im = new Image(); im.src = 'film/s' + i + '.jpg'; return im; });
-  var DPR = Math.min(devicePixelRatio || 1, 2);
+  /* Vidéo de fond : 61 images (12/s) sur 8 planches 2x4, lecture en fondu + boucle enchaînée */
+  var N = 61, FPS = 12, L = 12, C = N - L, cv = document.getElementById('film'), cx = cv.getContext('2d');
+  var DPR = Math.min(devicePixelRatio || 1, 2), ready = 0, t0 = null;
+  var sheets = [0,1,2,3,4,5,6,7].map(function(i){ var im = new Image(); im.decoding = 'async'; im.onload = function(){ ready++; if (i === 0) poster(); }; im.src = 'film/h' + i + '.jpg'; return im; });
   function frame(i, alpha){
+    i = Math.max(0, Math.min(N - 1, i));
     var sh = sheets[Math.floor(i/8)], k = i % 8, sx = (k%2)*960, sy = Math.floor(k/2)*540;
-    if (!sh.complete || !sh.naturalWidth) return false;
+    if (!sh.complete || !sh.naturalWidth) return;
     var w = cv.width, h = cv.height, s = Math.max(w/960, h/540), dw = 960*s, dh = 540*s;
-    cx.globalAlpha = alpha; cx.drawImage(sh, sx, sy, 960, 540, (w-dw)/2, (h-dh)/2, dw, dh); cx.globalAlpha = 1;
-    return true;
+    cx.globalAlpha = alpha; cx.drawImage(sh, sx, sy, 960, 540, (w-dw)/2, (h-dh)/2, dw, dh);
   }
+  function smooth(x, alpha){ var a = Math.floor(x), k = x - a; frame(a, alpha); if (k > 0.001) frame(a + 1, alpha * k); }
   function size(){ var r = cv.getBoundingClientRect(); var w = Math.round(r.width*DPR), h = Math.round(r.height*DPR); if (cv.width!==w||cv.height!==h){cv.width=w;cv.height=h;} }
+  function poster(){ size(); frame(0, 1); cx.globalAlpha = 1; }
   var visible = true;
   if ('IntersectionObserver' in window) new IntersectionObserver(function(e){ visible = e[0].isIntersecting; }).observe(cv);
-  var LOOP = N + 4; /* 4 images de fondu vers le début */
   function draw(ms){
-    if (visible){
+    if (visible && ready === sheets.length){
+      if (t0 === null) t0 = ms;
       size();
-      var f = (ms/1000*FPS) % LOOP;
-      if (f < N - 1){
-        var a = Math.floor(f);
-        if (frame(a, 1)) frame(a+1, f - a);
-      } else {
-        var p = Math.min(1, (f - (N-1)) / (LOOP - N + 1));
-        if (frame(N-1, 1)) frame(0, p);
-      }
+      var f = ((ms - t0) / 1000 * FPS) % C;
+      if (f < L){ smooth(f + C, 1); smooth(f, f / L); }
+      else smooth(f, 1);
+      cx.globalAlpha = 1;
     }
     if (!reduce) requestAnimationFrame(draw);
   }
-  if (reduce){ sheets[3].onload = function(){ size(); frame(29, 1); }; }
-  else requestAnimationFrame(draw);
+  if (!reduce) requestAnimationFrame(draw);
 
   /* Réservation */
   var tOne = document.getElementById('t-one'), tRet = document.getElementById('t-ret'), retRow = document.getElementById('retRow');
@@ -516,10 +558,10 @@ footer .logo{color:#fff}
     var d = document.getElementById('done');
     var from = document.getElementById('from').value || '—', dest = to.value || '—';
     var date = document.getElementById('date').value, time = document.getElementById('time').value;
-    var when = date ? new Date(date + 'T' + (time || '00:00')).toLocaleString('fr-FR', {weekday:'short', day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'}) : '';
+    var when = date ? new Date(date + 'T' + (time || '00:00')).toLocaleString(LANG === 'ar' ? 'ar' : LANG === 'en' ? 'en-GB' : 'fr-FR', {weekday:'short', day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'}) : '';
     d.innerHTML = '';
-    var b = document.createElement('b'); b.textContent = car.value + ' · ' + document.getElementById('pax').value + ' passager(s)';
-    var s = document.createElement('span'); s.textContent = from + ' → ' + dest + ' · ' + when + '. Maquette : aucune demande envoyée.';
+    var b = document.createElement('b'); b.textContent = tr(car.value) + ' · ' + document.getElementById('pax').value + ' ' + T('@pax');
+    var s = document.createElement('span'); s.textContent = from + ' → ' + dest + ' · ' + when + '. ' + T('@book_mock');
     d.append(b, s); d.hidden = false;
   });
   document.getElementById('cform').addEventListener('submit', function(e){ e.preventDefault(); document.getElementById('cdone').hidden = false; });
@@ -583,7 +625,7 @@ footer .logo{color:#fff}
     vip: function(){
       return '<h3>Composez votre convoi</h3><p class="sub">Nombre de véhicules et options.</p>' +
         '<div class="stepper"><button type="button" id="vip-m" aria-label="Retirer un véhicule">−</button><output id="vip-n">3</output><button type="button" id="vip-p" aria-label="Ajouter un véhicule">+</button><span>véhicules</span></div>' +
-        '<label for="vip-car">Véhicule<select id="vip-car"><option>Classe S</option><option>Classe V</option><option>Classe E</option><option>Sprinter</option></select></label>' +
+        '<label for="vip-car">Véhicule<select id="vip-car"><option value="Classe E">Classe E</option><option value="Classe V">Classe V</option><option value="Classe S" selected>Classe S</option><option value="Sprinter">Sprinter</option></select></label>' +
         '<div class="checks2"><label><input type="checkbox" checked> Responsable de convoi dédié</label><label><input type="checkbox"> Accord de confidentialité</label><label><input type="checkbox"> Chauffeurs arabophones</label></div>' +
         '<div class="result" id="vip-res"></div>' +
         '<button class="btn btn--full" type="button" data-book>Demander un devis</button>';
@@ -605,7 +647,7 @@ footer .logo{color:#fff}
       return '<h3>Durée</h3><p class="sub">Glissez pour choisir.</p>' +
         '<input type="range" id="dp-h" min="3" max="12" value="5" aria-label="Nombre d’heures">' +
         '<div class="result" id="dp-res" style="margin-top:12px"></div>' +
-        '<label for="dp-car">Véhicule<select id="dp-car"><option>Classe E</option><option>Classe V</option><option selected>Classe S</option><option>Sprinter</option></select></label>' +
+        '<label for="dp-car">Véhicule<select id="dp-car"><option value="Classe E">Classe E</option><option value="Classe V">Classe V</option><option value="Classe S" selected>Classe S</option><option value="Sprinter">Sprinter</option></select></label>' +
         '<button class="btn btn--full" type="button" data-book>Réserver un chauffeur</button>';
     }
   };
@@ -622,37 +664,37 @@ footer .logo{color:#fff}
     var fromEl = document.getElementById('from');
     if (id === 'transferts'){
       var pt, fl = root.querySelector('#tf-flight'), res = root.querySelector('#tf-res');
-      var upd = function(){ res.innerHTML = '<b>' + esc(pt) + '</b>' + (fl.value ? 'Suivi activé pour ' + esc(fl.value.toUpperCase()) + '. Votre chauffeur s’adapte à l’heure réelle d’arrivée.' : 'Ajoutez votre n° de vol pour activer le suivi.'); book = {from: pt}; };
+      var upd = function(){ res.innerHTML = '<b>' + esc(pt) + '</b>' + (fl.value ? T('@tf_on', {x: esc(fl.value.toUpperCase())}) : T('@tf_off')); book = {from: pt}; };
       chips(root, 'pt', function(v){ pt = v; upd(); }); fl.addEventListener('input', upd);
     }
     if (id === 'stations-de-ski'){
       var res2 = root.querySelector('#ski-res');
-      chips(root, 'st', function(v){ res2.innerHTML = '<b>≈ ' + SKI[v] + '</b>Genève → ' + esc(v) + '. Avec des skis, nous conseillons la Classe V.'; book = {from:'Aéroport de Genève', to:v, car:'Classe V'}; });
+      chips(root, 'st', function(v){ res2.innerHTML = '<b>≈ ' + SKI[v] + '</b>' + T('@ski', {x: esc(v)}); book = {from:'Aéroport de Genève', to:v, car:'Classe V'}; });
     }
     if (id === 'vip-delegations'){
       var n = 3, out = root.querySelector('#vip-n'), sel = root.querySelector('#vip-car'), res3 = root.querySelector('#vip-res');
       var cap = {'Classe S':3,'Classe V':7,'Classe E':3,'Sprinter':16};
-      var upd3 = function(){ out.textContent = n; res3.innerHTML = '<b>Convoi de ' + n + ' ' + sel.value + '</b>Jusqu’à ' + (n*cap[sel.value]) + ' passagers.'; book = {car: sel.value}; };
+      var upd3 = function(){ out.textContent = n; res3.innerHTML = '<b>' + T('@vip_t', {n: n, x: tr(sel.value)}) + '</b>' + T('@vip_s', {n: n*cap[sel.value]}); book = {car: sel.value}; };
       root.querySelector('#vip-m').addEventListener('click', function(){ n = Math.max(1, n-1); upd3(); });
       root.querySelector('#vip-p').addEventListener('click', function(){ n = Math.min(10, n+1); upd3(); });
       sel.addEventListener('change', upd3); upd3();
     }
     if (id === 'meet-greet'){
       var nm = root.querySelector('#sg-name'), so = root.querySelector('#sg-out');
-      var upd4 = function(){ so.textContent = (nm.value || 'Votre nom').toUpperCase(); };
+      var upd4 = function(){ so.textContent = (nm.value || T('@sign_ph')).toUpperCase(); };
       nm.addEventListener('input', upd4); upd4();
     }
     if (id === 'conciergerie'){
       root.querySelector('#cc-send').addEventListener('click', function(){
         var picked = Array.from(root.querySelectorAll('#cc-list input:checked')).map(function(i){ return i.parentNode.textContent.trim(); });
         var r = root.querySelector('#cc-res');
-        r.innerHTML = '<b>' + (picked.length ? picked.length + ' demande(s)' : 'Aucune case cochée') + '</b>' + (picked.length ? esc(picked.join(', ')) + '. ' : '') + 'Maquette : rien n’est envoyé.';
+        r.innerHTML = '<b>' + (picked.length ? T('@cc_n', {n: picked.length}) : T('@cc_none')) + '</b>' + (picked.length ? esc(picked.join(', ')) + '. ' : '') + T('@mock');
         r.hidden = false;
       });
     }
     if (id === 'mise-a-disposition'){
       var h = root.querySelector('#dp-h'), res5 = root.querySelector('#dp-res'), dc = root.querySelector('#dp-car');
-      var upd5 = function(){ var v = +h.value; res5.innerHTML = '<b>' + (v >= 10 ? 'Journée complète (' + v + ' h)' : v + ' heures') + '</b>Chauffeur dédié, arrêts illimités.'; book = {car: dc.value}; };
+      var upd5 = function(){ var v = +h.value; res5.innerHTML = '<b>' + (v >= 10 ? T('@dp_day', {n: v}) : T('@dp_h', {n: v})) + '</b>' + T('@dp_s'); book = {car: dc.value}; };
       h.addEventListener('input', upd5); dc.addEventListener('change', upd5); upd5();
     }
     root.querySelectorAll('[data-book]').forEach(function(b){
@@ -681,6 +723,7 @@ footer .logo{color:#fff}
       '<section class="section section--soft"><div class="container"><p class="eyebrow">Autres services</p><div class="others">' +
         others.map(function(k){ return '<a href="#' + k + '"><img src="img/' + SV[k].img + '.jpg" alt="" loading="lazy">' + esc(SV[k].title) + '</a>'; }).join('') +
       '</div></div></section>';
+    applyLang(page);
     wire(id, page);
   }
   function showHome(anchor){
@@ -695,6 +738,7 @@ footer .logo{color:#fff}
   }
   addEventListener('hashchange', route);
   route();
+  applyLang();
 
 })();
 </script>
