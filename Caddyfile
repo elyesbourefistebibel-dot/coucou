@@ -1,0 +1,7 @@
+:{$PORT:8080} {
+	root * /srv
+	encode gzip
+	file_server
+	header /img/* Cache-Control "public, max-age=604800"
+	header /video/* Cache-Control "public, max-age=604800"
+}
