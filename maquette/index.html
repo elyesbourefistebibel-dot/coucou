@@ -11,15 +11,15 @@
 <style>
 /* Layout: classic business site (like Duo Clean). Header + video hero with booking card, trust row, services, fleet photos, destinations, 1-2-3, FAQ, contact, footer, WhatsApp button. */
 :root{
-  --navy:#0F1B2D; --navy-2:#1B2B44; --ink:#0F1B2D; --muted:#5B6576; --bg:#FFFFFF; --soft:#F4F6F9; --line:#E3E7ED;
+  --navy:#0F1B2D; --navy-2:#1B2B44; --ink:#0F1B2D; --muted:#5B6576; --bg:#FFFFFF; --soft:#F4F6F9; --line:#E3E7ED; --soft-a:rgba(244,246,249,.55); --au1:rgba(176,204,255,.55); --au2:rgba(214,200,255,.45); --au3:rgba(255,214,226,.4);
   --card:#FFFFFF; --wa:#25D366;
   --sans:"Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --ink:#EEF1F5; --muted:#A2ABB8; --bg:#0B111B; --soft:#111926; --line:#223047; --card:#141E2D; color-scheme:dark}}
+  --ink:#EEF1F5; --muted:#A2ABB8; --bg:#0B111B; --soft:#111926; --line:#223047; --card:#141E2D; --soft-a:rgba(17,25,38,.55); --au1:rgba(40,80,150,.35); --au2:rgba(80,60,160,.28); --au3:rgba(150,60,100,.22); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --ink:#EEF1F5; --muted:#A2ABB8; --bg:#0B111B; --soft:#111926; --line:#223047; --card:#141E2D; color-scheme:dark}
+  --ink:#EEF1F5; --muted:#A2ABB8; --bg:#0B111B; --soft:#111926; --line:#223047; --card:#141E2D; --soft-a:rgba(17,25,38,.55); --au1:rgba(40,80,150,.35); --au2:rgba(80,60,160,.28); --au3:rgba(150,60,100,.22); color-scheme:dark}
 
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -35,7 +35,7 @@ p{margin:0}
 .container{max-width:1160px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .eyebrow{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
 .section{padding-block:80px}
-.section--soft{background:var(--soft)}
+.section--soft{background:var(--soft-a)}
 .head{max-width:640px;margin-bottom:36px}
 .head p:not(.eyebrow){color:var(--muted);margin-top:10px}
 
@@ -84,7 +84,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 /* hero */
 .hero{position:relative;color:#fff;background:#0A0F18;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:0;background:url("img/hero-desktop.jpg") 60% 80%/cover no-repeat;transform:scaleX(-1)}
+.hero::before{content:"";position:absolute;inset:-40px;background:url("img/hero-desktop.jpg") 60% 80%/cover no-repeat;transform:scaleX(-1)}
 @media (max-width:960px){.hero::before{background-image:url("img/hero-mobile.jpg");background-size:100% auto;background-position:center top;transform:none}.hero .container{row-gap:0!important}.hero .container>div:first-child{min-height:calc(179.2vw*.87 - 32px)}.hero::after{background:linear-gradient(180deg,rgba(8,12,20,.5) 0%,rgba(8,12,20,.15) 30%,rgba(8,12,20,0) 45%,rgba(10,15,24,.9) min(150vw,1100px),#0A0F18 min(180vw,1300px))}}
 .hero canvas{position:absolute;inset:0;width:100%;height:100%}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,12,20,.55) 0%,rgba(8,12,20,.25) 45%,rgba(8,12,20,.1) 100%),linear-gradient(90deg,rgba(8,12,20,.45) 0%,rgba(8,12,20,0) 60%)}
@@ -199,6 +199,37 @@ input[type=range]{width:100%;accent-color:#0F1B2D}
 @media (max-width:900px){.others{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:520px){.others{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}.others a{flex:0 0 46%;scroll-snap-align:start}}
 
+
+/* ===== Effets dynamiques ===== */
+.aurora{position:fixed;inset:-25%;z-index:-1;pointer-events:none;background:
+  radial-gradient(38% 32% at 18% 28%,var(--au1),transparent 70%),
+  radial-gradient(34% 30% at 82% 22%,var(--au2),transparent 70%),
+  radial-gradient(44% 38% at 62% 82%,var(--au3),transparent 70%)}
+#snow{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.hero::before{translate:var(--mx,0px) calc(var(--my,0px) + var(--hy,0px));transition:translate .9s cubic-bezier(.2,.7,.2,1)}
+.steps .clip{position:absolute;inset:0;overflow:hidden;border-radius:18px 18px 0 0}
+.car .ph{position:relative}
+.glare{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden;border-radius:inherit;opacity:0;transition:opacity .4s;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.32),rgba(255,255,255,0) 45%)}
+.glare::before{content:"";position:absolute;top:0;bottom:0;width:40%;left:-70%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-18deg)}
+@media (prefers-reduced-motion:no-preference){
+  .aurora{animation:aur 36s ease-in-out infinite alternate;will-change:transform}
+  @keyframes aur{0%{transform:translate3d(0,0,0) rotate(0deg) scale(1)}50%{transform:translate3d(5%,-4%,0) rotate(10deg) scale(1.08)}100%{transform:translate3d(-4%,5%,0) rotate(-8deg) scale(1)}}
+  .hero::before{animation:kbd 22s ease-in-out infinite alternate}
+  @keyframes kbd{from{transform:scaleX(-1) scale(1.02)}to{transform:scaleX(-1) scale(1.12)}}
+  @media (max-width:960px){.hero::before{animation-name:kbm}@keyframes kbm{from{transform:scale(1.02)}to{transform:scale(1.1)}}}
+  .fx{transform:perspective(1100px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translate3d(0,var(--ty,34px),0);transition:transform 1s cubic-bezier(.2,.7,.2,1),box-shadow .4s;will-change:transform}
+  .fx.in{--ty:0px}
+  .fx:hover{transition:transform .25s ease-out,box-shadow .4s;box-shadow:0 30px 60px -25px rgba(15,27,45,.45)}
+  .fx img{transform:translate3d(0,var(--py,0px),0) scale(var(--sc,1.3))!important;transition:transform 1.8s cubic-bezier(.2,.7,.2,1)!important;will-change:transform}
+  .fx.in img{--sc:1.1}
+  .fx:hover img{--sc:1.2;transition:transform .9s cubic-bezier(.2,.7,.2,1)!important}
+  .fx:hover .glare{opacity:1}
+  .fx.in .glare{opacity:1;background:none}
+  .fx.in:hover .glare{background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.32),rgba(255,255,255,0) 45%)}
+  .fx.in .glare::before{animation:sweep 1.5s .35s cubic-bezier(.3,.6,.3,1) both}
+  @keyframes sweep{to{left:140%}}
+}
+
 /* fleet */
 .fleet{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .car{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
@@ -264,6 +295,7 @@ footer .logo{color:#fff}
 </head>
 <body>
 
+<div class="aurora" aria-hidden="true"></div>
 <header class="header" id="top">
   <div class="container">
     <a class="logo" href="#top" aria-label="Alpes Luxury Transfert, accueil"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="25" fill="none" stroke="currentColor" stroke-opacity=".3" stroke-width="1.4"/><path d="M13 41 L27 18 L33 28 L38 21 L51 41" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/><path d="M24 23.2 L27 18 L30.2 23.4 L27.6 22 Z" fill="currentColor"/><path d="M18 48 C26 42, 38 50, 46 44" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg><span><b>ALPES LUXURY</b><small>TRANSFERT</small></span></a>
@@ -282,6 +314,7 @@ footer .logo{color:#fff}
 
 <main id="home">
   <section class="hero" id="reserver">
+    <canvas id="snow" aria-hidden="true"></canvas>
     <div class="container">
       <div>
         <h1>Votre chauffeur privé dans les Alpes</h1>
@@ -406,9 +439,9 @@ footer .logo{color:#fff}
     <div class="container">
       <div class="head"><p class="eyebrow">Comment ça marche</p><h2>Simple comme 1, 2, 3</h2></div>
       <ol class="steps">
-        <li><div class="ph"><img src="img/step-1.jpg" alt="Réservation d'un chauffeur sur smartphone dans un salon d'hôtel" loading="lazy"><span class="n">1</span></div><div class="bd"><h3>Vous réservez</h3><p>En ligne, par téléphone ou sur WhatsApp.</p><span class="tag">2 minutes</span></div></li>
-        <li><div class="ph"><img src="img/step-2.jpg" alt="Voyageur lisant sa confirmation sur son téléphone en gare" loading="lazy"><span class="n">2</span></div><div class="bd"><h3>Vous recevez votre prix</h3><p>Prix fixe confirmé, sans frais cachés.</p><span class="tag">Réponse rapide</span></div></li>
-        <li><div class="ph"><img src="img/step-3.jpg" alt="Chauffeur ouvrant la portière d'une Mercedes Classe S devant un chalet" loading="lazy"><span class="n">3</span></div><div class="bd"><h3>Votre chauffeur vous attend</h3><p>À l’heure, avec une pancarte à votre nom.</p><span class="tag">Bon voyage</span></div></li>
+        <li><div class="ph"><span class="clip"><img src="img/step-1.jpg" alt="Réservation d'un chauffeur sur smartphone dans un salon d'hôtel" loading="lazy"></span><span class="n">1</span></div><div class="bd"><h3>Vous réservez</h3><p>En ligne, par téléphone ou sur WhatsApp.</p><span class="tag">2 minutes</span></div></li>
+        <li><div class="ph"><span class="clip"><img src="img/step-2.jpg" alt="Voyageur lisant sa confirmation sur son téléphone en gare" loading="lazy"></span><span class="n">2</span></div><div class="bd"><h3>Vous recevez votre prix</h3><p>Prix fixe confirmé, sans frais cachés.</p><span class="tag">Réponse rapide</span></div></li>
+        <li><div class="ph"><span class="clip"><img src="img/step-3.jpg" alt="Chauffeur ouvrant la portière d'une Mercedes Classe S devant un chalet" loading="lazy"></span><span class="n">3</span></div><div class="bd"><h3>Votre chauffeur vous attend</h3><p>À l’heure, avec une pancarte à votre nom.</p><span class="tag">Bon voyage</span></div></li>
       </ol>
     </div>
   </section>
@@ -516,6 +549,86 @@ footer .logo{color:#fff}
     });
   });
 
+
+
+  /* ===== Effets dynamiques ===== */
+  var fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var fxIO = ('IntersectionObserver' in window) ? new IntersectionObserver(function(es){
+    es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); fxIO.unobserve(e.target); } });
+  }, {threshold: .22, rootMargin: '0px 0px -6% 0px'}) : null;
+  function photoBox(card){
+    if (card.matches('.car')) return card.querySelector('.ph');
+    if (card.matches('.steps li')) return card.querySelector('.clip');
+    return card;
+  }
+  function fx(root){
+    if (reduce) return;
+    (root || document).querySelectorAll('.car, .svc, .steps li, .others a').forEach(function(card){
+      if (card.__fx) return; card.__fx = 1;
+      var box = photoBox(card); if (box && !box.querySelector(':scope > .glare')){ var g = document.createElement('span'); g.className = 'glare'; box.appendChild(g); }
+      card.classList.add('fx');
+      if (fxIO) fxIO.observe(card); else card.classList.add('in');
+      if (fine){
+        card.addEventListener('pointermove', function(e){
+          var r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+          card.style.setProperty('--rx', ((.5 - y) * 7).toFixed(2) + 'deg');
+          card.style.setProperty('--ry', ((x - .5) * 9).toFixed(2) + 'deg');
+          card.style.setProperty('--gx', (x * 100).toFixed(1) + '%');
+          card.style.setProperty('--gy', (y * 100).toFixed(1) + '%');
+        });
+        card.addEventListener('pointerleave', function(){ card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg'); });
+      }
+    });
+  }
+  fx();
+  /* parallaxe au défilement */
+  var hero = document.querySelector('.hero'), ticking = false;
+  function onScroll(){
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(function(){
+      ticking = false;
+      var vh = innerHeight;
+      var hr = hero.getBoundingClientRect();
+      if (hr.bottom > 0) hero.style.setProperty('--hy', (-hr.top * .25).toFixed(1) + 'px');
+      document.querySelectorAll('.fx.in img').forEach(function(im){
+        var r = im.parentElement.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > vh) return;
+        var k = ((r.top + r.height / 2) - vh / 2) / vh;
+        im.style.setProperty('--py', (k * -18).toFixed(1) + 'px');
+      });
+    });
+  }
+  if (!reduce){ addEventListener('scroll', onScroll, {passive: true}); onScroll(); }
+  if (!reduce && fine){
+    hero.addEventListener('pointermove', function(e){
+      var r = hero.getBoundingClientRect();
+      hero.style.setProperty('--mx', (((e.clientX - r.left) / r.width - .5) * -22).toFixed(1) + 'px');
+      hero.style.setProperty('--my', (((e.clientY - r.top) / r.height - .5) * -14).toFixed(1) + 'px');
+    });
+    hero.addEventListener('pointerleave', function(){ hero.style.setProperty('--mx', '0px'); hero.style.setProperty('--my', '0px'); });
+  }
+  /* neige légère sur l'accueil */
+  (function(){
+    var c = document.getElementById('snow'); if (!c || reduce) return;
+    var x = c.getContext('2d'), D = Math.min(devicePixelRatio || 1, 2), fl = [], on = true;
+    for (var i = 0; i < 70; i++) fl.push({x: Math.random(), y: Math.random(), r: Math.random() * 1.6 + .5, v: Math.random() * .035 + .015, d: Math.random() * 6, o: Math.random() * .5 + .35});
+    if ('IntersectionObserver' in window) new IntersectionObserver(function(e){ on = e[0].isIntersecting; }).observe(c);
+    var last = 0;
+    (function loop(t){
+      if (on){
+        var w = Math.round(c.clientWidth * D), h = Math.round(c.clientHeight * D);
+        if (c.width !== w || c.height !== h){ c.width = w; c.height = h; }
+        var dt = Math.min(.05, (t - last) / 1000 || 0); last = t;
+        x.clearRect(0, 0, w, h);
+        fl.forEach(function(f){
+          f.y += f.v * dt; if (f.y > 1.02){ f.y = -.02; f.x = Math.random(); }
+          var px = (f.x + Math.sin(t / 1600 + f.d) * .012) * w, py = f.y * h;
+          x.globalAlpha = f.o; x.fillStyle = '#fff'; x.beginPath(); x.arc(px, py, f.r * D, 0, 7); x.fill();
+        });
+      } else last = t;
+      requestAnimationFrame(loop);
+    })(0);
+  })();
 
   /* Réservation */
   var tOne = document.getElementById('t-one'), tRet = document.getElementById('t-ret'), retRow = document.getElementById('retRow');
@@ -708,6 +821,7 @@ footer .logo{color:#fff}
       '</div></div></section>';
     applyLang(page);
     wire(id, page);
+    fx(page);
   }
   function showHome(anchor){
     page.hidden = true; home.hidden = false;
