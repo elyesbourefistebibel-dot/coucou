@@ -130,6 +130,52 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .svc p{font-size:14px;opacity:.88;margin-top:4px}
 @media (max-width:560px){.svc{aspect-ratio:16/11}}
 
+
+.svc .more{display:inline-block;margin-top:10px;font-size:14px;font-weight:600;border-bottom:1px solid rgba(255,255,255,.6)}
+/* service pages */
+.sp-hero{position:relative;min-height:340px;display:flex;align-items:flex-end;color:#fff;background:#0A0F18;overflow:hidden}
+.sp-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.sp-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,12,20,.25),rgba(8,12,20,.8))}
+.sp-hero .container{position:relative;z-index:2;width:100%;padding-block:28px 36px}
+.sp-back{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.14);backdrop-filter:blur(8px);margin-bottom:18px}
+.sp-hero h1{font-size:clamp(32px,5vw,52px);font-weight:700}
+.sp-hero p{font-size:17px;opacity:.9;margin-top:10px;max-width:36em}
+.sp-grid{display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:start}
+@media (max-width:900px){.sp-grid{grid-template-columns:1fr}.tool{position:static;order:-1}}
+.incl{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.incl li{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.incl li::before{content:"✓";flex:none;width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:700}
+:root[data-theme="dark"] .incl li::before{background:#EEF1F5;color:#0F1B2D}
+.incl b{display:block;font-weight:600}
+.incl span{color:var(--muted);font-size:14px}
+.tool{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;position:sticky;top:90px}
+.tool h3{font-size:20px;margin-bottom:4px}
+.tool .sub{color:var(--muted);font-size:14px;margin-bottom:16px}
+.tool label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:12px}
+.tool input[type=text],.tool select,.tool textarea{border:1px solid var(--line);border-radius:12px;padding:12px;font:500 15px var(--sans);background:var(--card);color:var(--ink);width:100%}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.chips button{height:40px;padding-inline:14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:500 14px var(--sans);cursor:pointer}
+.chips button[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.result{background:var(--soft);border-radius:12px;padding:14px;margin-bottom:14px;font-size:15px}
+.result b{display:block;font-size:22px;letter-spacing:-.01em}
+.stepper{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.stepper button{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:22px;cursor:pointer}
+.stepper output{font-size:26px;font-weight:700;min-width:2ch;text-align:center;font-variant-numeric:tabular-nums}
+.checks2{display:grid;gap:8px;margin-bottom:14px}
+.checks2 label{flex-direction:row;align-items:center;gap:10px;margin:0;color:var(--ink);font-weight:500;font-size:15px;border:1px solid var(--line);border-radius:12px;padding:11px 12px;cursor:pointer}
+.checks2 input{width:18px;height:18px;accent-color:#0F1B2D}
+.sign{background:#fff;color:#0F1B2D;border:8px solid #1B2B44;border-radius:6px;padding:22px 14px;text-align:center;margin-bottom:14px;box-shadow:0 14px 30px -14px rgba(0,0,0,.4)}
+.sign .nm{font-size:clamp(22px,4vw,30px);font-weight:700;letter-spacing:.03em;word-break:break-word;min-height:1.2em}
+.sign .co{display:flex;align-items:center;justify-content:center;gap:6px;font-size:11px;letter-spacing:.2em;margin-top:8px;color:#5B6576}
+.sign .co svg{width:18px;height:18px}
+input[type=range]{width:100%;accent-color:#0F1B2D}
+.others{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.others a{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:1/1;max-width:100%;color:#fff;display:flex;align-items:flex-end;padding:12px;font-weight:600;font-size:14px;isolation:isolate}
+.others img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.others a::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.75));z-index:-1}
+@media (max-width:900px){.others{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:520px){.others{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}.others a{flex:0 0 46%;scroll-snap-align:start}}
+
 /* fleet */
 .fleet{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .car{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
@@ -205,7 +251,7 @@ footer .logo{color:#fff}
   </div>
 </header>
 
-<main>
+<main id="home">
   <section class="hero" id="reserver">
     <canvas id="film" aria-hidden="true"></canvas>
     <div class="container">
@@ -266,12 +312,12 @@ footer .logo{color:#fff}
         <p>Particuliers, entreprises ou délégations : un seul interlocuteur du départ à l’arrivée.</p>
       </div>
       <div class="grid3">
-        <article class="svc"><img src="img/svc-aeroport.jpg" alt="Chauffeur ouvrant la porte d'une Mercedes à l'aéroport" loading="lazy"><div class="tx"><h3>Transferts aéroport &amp; gare</h3><p>Genève, Lyon, Chambéry et toutes les gares des Alpes.</p></div></article>
-        <article class="svc"><img src="img/svc-ski.jpg" alt="Mercedes Classe V devant une station de ski" loading="lazy"><div class="tx"><h3>Stations de ski</h3><p>Courchevel, Méribel, Val d’Isère, Megève, Chamonix…</p></div></article>
-        <article class="svc"><img src="img/svc-vip.jpg" alt="Convoi de trois Mercedes Classe S sur une route de montagne" loading="lazy"><div class="tx"><h3>Transport VIP &amp; délégations</h3><p>Convois multi-véhicules et transport protocolaire.</p></div></article>
-        <article class="svc"><img src="img/svc-meet.jpg" alt="Chauffeur tenant une pancarte d'accueil à l'aéroport" loading="lazy"><div class="tx"><h3>Meet &amp; Greet</h3><p>Accueil à votre nom à l’arrivée, bagages pris en charge.</p></div></article>
-        <article class="svc"><img src="img/svc-concierge.jpg" alt="Salon d'un chalet de luxe avec vue sur les montagnes" loading="lazy"><div class="tx"><h3>Conciergerie</h3><p>Hôtels, chalets, restaurants et activités réservés pour vous.</p></div></article>
-        <article class="svc"><img src="img/svc-dispo.jpg" alt="Banquette arrière en cuir d'une Mercedes Classe S la nuit" loading="lazy"><div class="tx"><h3>Mise à disposition</h3><p>Un chauffeur à l’heure ou à la journée.</p></div></article>
+        <a class="svc" href="#transferts"><img src="img/svc-aeroport.jpg" alt="Chauffeur ouvrant la porte d'une Mercedes à l'aéroport" loading="lazy"><div class="tx"><h3>Transferts aéroport &amp; gare</h3><p>Genève, Lyon, Chambéry et toutes les gares des Alpes.</p><span class="more">Découvrir →</span></div></a>
+        <a class="svc" href="#stations-de-ski"><img src="img/svc-ski.jpg" alt="Mercedes Classe V devant une station de ski" loading="lazy"><div class="tx"><h3>Stations de ski</h3><p>Courchevel, Méribel, Val d’Isère, Megève, Chamonix…</p><span class="more">Découvrir →</span></div></a>
+        <a class="svc" href="#vip-delegations"><img src="img/svc-vip.jpg" alt="Convoi de trois Mercedes Classe S sur une route de montagne" loading="lazy"><div class="tx"><h3>Transport VIP &amp; délégations</h3><p>Convois multi-véhicules et transport protocolaire.</p><span class="more">Découvrir →</span></div></a>
+        <a class="svc" href="#meet-greet"><img src="img/svc-meet.jpg" alt="Chauffeur tenant une pancarte d'accueil à l'aéroport" loading="lazy"><div class="tx"><h3>Meet &amp; Greet</h3><p>Accueil à votre nom à l’arrivée, bagages pris en charge.</p><span class="more">Découvrir →</span></div></a>
+        <a class="svc" href="#conciergerie"><img src="img/svc-concierge.jpg" alt="Salon d'un chalet de luxe avec vue sur les montagnes" loading="lazy"><div class="tx"><h3>Conciergerie</h3><p>Hôtels, chalets, restaurants et activités réservés pour vous.</p><span class="more">Découvrir →</span></div></a>
+        <a class="svc" href="#mise-a-disposition"><img src="img/svc-dispo.jpg" alt="Banquette arrière en cuir d'une Mercedes Classe S la nuit" loading="lazy"><div class="tx"><h3>Mise à disposition</h3><p>Un chauffeur à l’heure ou à la journée.</p><span class="more">Découvrir →</span></div></a>
       </div>
     </div>
   </section>
@@ -380,6 +426,7 @@ footer .logo{color:#fff}
     </div>
   </section>
 </main>
+<div id="svcpage" hidden></div>
 
 <footer>
   <div class="container"><a class="logo" href="#top"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="25" fill="none" stroke="currentColor" stroke-opacity=".3" stroke-width="1.4"/><path d="M13 41 L27 18 L33 28 L38 21 L51 41" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/><path d="M24 23.2 L27 18 L30.2 23.4 L27.6 22 Z" fill="currentColor"/><path d="M18 48 C26 42, 38 50, 46 44" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg><span><b>ALPES LUXURY</b><small>TRANSFERT</small></span></a><span>© 2026 Alpes Luxury Transfert</span><span>Maquette · photos générées par IA · coordonnées fictives</span></div>
@@ -460,6 +507,179 @@ footer .logo{color:#fff}
     d.append(b, s); d.hidden = false;
   });
   document.getElementById('cform').addEventListener('submit', function(e){ e.preventDefault(); document.getElementById('cdone').hidden = false; });
+  /* ===== Pages services (routage par #nom) ===== */
+  var MARK = '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M13 41 L27 18 L33 28 L38 21 L51 41" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><path d="M18 48 C26 42, 38 50, 46 44" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>';
+  function esc(t){ var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+
+  var SV = {
+    'transferts': {
+      img:'svc-aeroport', title:'Transferts aéroport & gare', lead:'Votre chauffeur vous attend à l’arrivée, quel que soit l’horaire de votre vol ou de votre train.',
+      incl:[['Suivi du vol en temps réel','Retard ou avance : l’horaire s’adapte, sans frais.'],['60 min d’attente offertes','Le temps de récupérer vos bagages tranquillement.'],['Prix fixe','Péages et carburant inclus, annoncés à la réservation.'],['Eau, chargeurs et Wi-Fi à bord','Dans tous nos véhicules.']],
+      faq:[['Que se passe-t-il si mon vol est annulé ?','Prévenez-nous : nous reprogrammons gratuitement votre transfert.'],['Venez-vous aussi chercher en gare ?','Oui : Moûtiers, Bourg-Saint-Maurice, Annecy, Chambéry, Lyon Part-Dieu…']],
+      tool:'transfer'
+    },
+    'stations-de-ski': {
+      img:'svc-ski', title:'Stations de ski', lead:'De l’aéroport jusqu’au pied de votre chalet, skis et bagages compris.',
+      incl:[['Porte-skis et grands coffres','Classe V et Sprinter adaptés aux familles et groupes.'],['Pneus hiver et chaînes','Véhicules équipés de novembre à avril.'],['Chauffeurs habitués à la montagne','Routes de col et accès aux chalets.'],['Dépose au chalet','Jusqu’à la porte, même en haut de station.']],
+      faq:[['Pouvez-vous nous récupérer en fin de séjour ?','Oui, réservez l’aller-retour en une fois.'],['Et s’il neige beaucoup ?','Nous anticipons l’horaire de départ et vous tenons informé.']],
+      tool:'ski'
+    },
+    'vip-delegations': {
+      img:'svc-vip', title:'Transport VIP & délégations', lead:'Convois coordonnés pour délégations, dirigeants et événements officiels.',
+      incl:[['Coordination du convoi','Un responsable dédié et des chauffeurs en liaison radio.'],['Chauffeurs discrets','Tenue sombre, confidentialité garantie.'],['Itinéraires préparés','Repérage des accès, entrées protocolaires.'],['Flotte homogène','Véhicules noirs identiques pour tout le convoi.']],
+      faq:[['Pouvez-vous signer un accord de confidentialité ?','Oui, sur simple demande.'],['Combien de véhicules au maximum ?','Jusqu’à 10 véhicules coordonnés.']],
+      tool:'vip'
+    },
+    'meet-greet': {
+      img:'svc-meet', title:'Meet & Greet', lead:'Un chauffeur vous accueille à votre nom dès la sortie, et s’occupe de vos bagages.',
+      incl:[['Pancarte à votre nom','Au hall des arrivées, côté France ou Suisse à Genève.'],['Prise en charge des bagages','Jusqu’au véhicule.'],['Accueil jet privé','Directement au terminal d’aviation d’affaires.'],['Message à l’atterrissage','Le chauffeur vous envoie sa position par SMS ou WhatsApp.']],
+      faq:[['Puis-je mettre le nom de mon entreprise sur la pancarte ?','Oui, nom de la personne, de l’entreprise ou les deux.']],
+      tool:'sign'
+    },
+    'conciergerie': {
+      img:'svc-concierge', title:'Conciergerie', lead:'Dites-nous ce dont vous avez besoin, nous organisons le reste de votre séjour.',
+      incl:[['Hôtels et chalets','Réservation et arrivée organisée.'],['Restaurants','Tables dans les meilleures adresses de la station.'],['Forfaits et cours de ski','Prêts à votre arrivée.'],['Demandes particulières','Fleurs, cadeaux, chef à domicile…']],
+      faq:[['La conciergerie est-elle payante ?','Elle est offerte à nos clients pour toute réservation de transfert.']],
+      tool:'concierge'
+    },
+    'mise-a-disposition': {
+      img:'svc-dispo', title:'Mise à disposition', lead:'Un chauffeur et son véhicule rien que pour vous, à l’heure ou à la journée.',
+      incl:[['Chauffeur dédié','Le même chauffeur toute la durée.'],['Arrêts illimités','Shopping, rendez-vous, visites : il vous attend.'],['Programme libre','Modifiable à tout moment pendant la journée.'],['Idéal pour les événements','Mariages, salons, séminaires.']],
+      faq:[['Quelle est la durée minimum ?','3 heures.'],['Le chauffeur peut-il faire plusieurs villes ?','Oui, Genève, Annecy, Chamonix ou plus loin.']],
+      tool:'dispo'
+    }
+  };
+
+  var TOOLS = {
+    transfer: function(){
+      return '<h3>Votre transfert</h3><p class="sub">Choisissez votre point d’arrivée.</p>' +
+        '<div class="chips" data-group="pt">' + ['Aéroport de Genève','Lyon Saint-Exupéry','Chambéry','Gare de Moûtiers','Gare de Bourg-Saint-Maurice','Gare d’Annecy'].map(function(x,i){return '<button type="button" aria-pressed="'+(i===0)+'">'+x+'</button>';}).join('') + '</div>' +
+        '<label for="tf-flight">N° de vol ou de train<input type="text" id="tf-flight" placeholder="ex. EZS 1452"></label>' +
+        '<div class="result" id="tf-res"></div>' +
+        '<button class="btn btn--full" type="button" data-book>Réserver ce transfert</button>';
+    },
+    ski: function(){
+      return '<h3>Temps de trajet</h3><p class="sub">Depuis l’aéroport de Genève, en conditions normales.</p>' +
+        '<div class="chips" data-group="st">' + Object.keys(SKI).map(function(x,i){return '<button type="button" aria-pressed="'+(i===0)+'">'+x+'</button>';}).join('') + '</div>' +
+        '<div class="result" id="ski-res"></div>' +
+        '<button class="btn btn--full" type="button" data-book>Réserver vers cette station</button>';
+    },
+    vip: function(){
+      return '<h3>Composez votre convoi</h3><p class="sub">Nombre de véhicules et options.</p>' +
+        '<div class="stepper"><button type="button" id="vip-m" aria-label="Retirer un véhicule">−</button><output id="vip-n">3</output><button type="button" id="vip-p" aria-label="Ajouter un véhicule">+</button><span>véhicules</span></div>' +
+        '<label for="vip-car">Véhicule<select id="vip-car"><option>Classe S</option><option>Classe V</option><option>Classe E</option><option>Sprinter</option></select></label>' +
+        '<div class="checks2"><label><input type="checkbox" checked> Responsable de convoi dédié</label><label><input type="checkbox"> Accord de confidentialité</label><label><input type="checkbox"> Chauffeurs arabophones</label></div>' +
+        '<div class="result" id="vip-res"></div>' +
+        '<button class="btn btn--full" type="button" data-book>Demander un devis</button>';
+    },
+    sign: function(){
+      return '<h3>Aperçu de votre pancarte</h3><p class="sub">Tapez le nom à afficher.</p>' +
+        '<label for="sg-name">Nom sur la pancarte<input type="text" id="sg-name" maxlength="40" value="M. et Mme Martin"></label>' +
+        '<div class="sign"><div class="nm" id="sg-out"></div><div class="co">' + MARK + 'ALPES LUXURY TRANSFERT</div></div>' +
+        '<button class="btn btn--full" type="button" data-book>Réserver avec Meet &amp; Greet</button>';
+    },
+    concierge: function(){
+      return '<h3>Votre demande</h3><p class="sub">Cochez ce qui vous intéresse.</p>' +
+        '<div class="checks2" id="cc-list">' + ['Hôtel ou chalet','Table au restaurant','Forfaits de ski','Cours de ski','Location de matériel','Chef à domicile'].map(function(x){return '<label><input type="checkbox"> '+x+'</label>';}).join('') + '</div>' +
+        '<label for="cc-msg">Précisions<textarea id="cc-msg" rows="3" placeholder="Dates, nombre de personnes…"></textarea></label>' +
+        '<button class="btn btn--full" type="button" id="cc-send">Envoyer ma demande</button>' +
+        '<div class="result" id="cc-res" hidden style="margin-top:12px"></div>';
+    },
+    dispo: function(){
+      return '<h3>Durée</h3><p class="sub">Glissez pour choisir.</p>' +
+        '<input type="range" id="dp-h" min="3" max="12" value="5" aria-label="Nombre d’heures">' +
+        '<div class="result" id="dp-res" style="margin-top:12px"></div>' +
+        '<label for="dp-car">Véhicule<select id="dp-car"><option>Classe E</option><option>Classe V</option><option selected>Classe S</option><option>Sprinter</option></select></label>' +
+        '<button class="btn btn--full" type="button" data-book>Réserver un chauffeur</button>';
+    }
+  };
+  var SKI = {'Megève':'1 h','Chamonix':'1 h 10','Les Arcs':'2 h','Méribel':'2 h','Courchevel':'2 h 05','Val Thorens':'2 h 20','Tignes':'2 h 30','Val d’Isère':'2 h 35'};
+
+  function chips(root, group, cb){
+    var bs = root.querySelectorAll('[data-group="'+group+'"] button');
+    bs.forEach(function(b){ b.addEventListener('click', function(){ bs.forEach(function(x){ x.setAttribute('aria-pressed', x===b); }); cb(b.textContent); }); });
+    cb(bs[0].textContent);
+  }
+
+  function wire(id, root){
+    var book = {};
+    var fromEl = document.getElementById('from');
+    if (id === 'transferts'){
+      var pt, fl = root.querySelector('#tf-flight'), res = root.querySelector('#tf-res');
+      var upd = function(){ res.innerHTML = '<b>' + esc(pt) + '</b>' + (fl.value ? 'Suivi activé pour ' + esc(fl.value.toUpperCase()) + '. Votre chauffeur s’adapte à l’heure réelle d’arrivée.' : 'Ajoutez votre n° de vol pour activer le suivi.'); book = {from: pt}; };
+      chips(root, 'pt', function(v){ pt = v; upd(); }); fl.addEventListener('input', upd);
+    }
+    if (id === 'stations-de-ski'){
+      var res2 = root.querySelector('#ski-res');
+      chips(root, 'st', function(v){ res2.innerHTML = '<b>≈ ' + SKI[v] + '</b>Genève → ' + esc(v) + '. Avec des skis, nous conseillons la Classe V.'; book = {from:'Aéroport de Genève', to:v, car:'Classe V'}; });
+    }
+    if (id === 'vip-delegations'){
+      var n = 3, out = root.querySelector('#vip-n'), sel = root.querySelector('#vip-car'), res3 = root.querySelector('#vip-res');
+      var cap = {'Classe S':3,'Classe V':7,'Classe E':3,'Sprinter':16};
+      var upd3 = function(){ out.textContent = n; res3.innerHTML = '<b>Convoi de ' + n + ' ' + sel.value + '</b>Jusqu’à ' + (n*cap[sel.value]) + ' passagers.'; book = {car: sel.value}; };
+      root.querySelector('#vip-m').addEventListener('click', function(){ n = Math.max(1, n-1); upd3(); });
+      root.querySelector('#vip-p').addEventListener('click', function(){ n = Math.min(10, n+1); upd3(); });
+      sel.addEventListener('change', upd3); upd3();
+    }
+    if (id === 'meet-greet'){
+      var nm = root.querySelector('#sg-name'), so = root.querySelector('#sg-out');
+      var upd4 = function(){ so.textContent = (nm.value || 'Votre nom').toUpperCase(); };
+      nm.addEventListener('input', upd4); upd4();
+    }
+    if (id === 'conciergerie'){
+      root.querySelector('#cc-send').addEventListener('click', function(){
+        var picked = Array.from(root.querySelectorAll('#cc-list input:checked')).map(function(i){ return i.parentNode.textContent.trim(); });
+        var r = root.querySelector('#cc-res');
+        r.innerHTML = '<b>' + (picked.length ? picked.length + ' demande(s)' : 'Aucune case cochée') + '</b>' + (picked.length ? esc(picked.join(', ')) + '. ' : '') + 'Maquette : rien n’est envoyé.';
+        r.hidden = false;
+      });
+    }
+    if (id === 'mise-a-disposition'){
+      var h = root.querySelector('#dp-h'), res5 = root.querySelector('#dp-res'), dc = root.querySelector('#dp-car');
+      var upd5 = function(){ var v = +h.value; res5.innerHTML = '<b>' + (v >= 10 ? 'Journée complète (' + v + ' h)' : v + ' heures') + '</b>Chauffeur dédié, arrêts illimités.'; book = {car: dc.value}; };
+      h.addEventListener('input', upd5); dc.addEventListener('change', upd5); upd5();
+    }
+    root.querySelectorAll('[data-book]').forEach(function(b){
+      b.addEventListener('click', function(){
+        if (book.from) fromEl.value = book.from;
+        if (book.to) to.value = book.to;
+        if (book.car) car.value = book.car;
+        showHome('reserver');
+        if (location.hash !== '#reserver') history.replaceState(null, '', '#reserver');
+      });
+    });
+  }
+
+  var page = document.getElementById('svcpage'), home = document.getElementById('home');
+  function render(id){
+    var d = SV[id];
+    var others = Object.keys(SV).filter(function(k){ return k !== id; });
+    page.innerHTML =
+      '<section class="sp-hero"><img src="img/' + d.img + '.jpg" alt=""><div class="container">' +
+        '<a class="sp-back" href="#services">← Tous les services</a><h1>' + esc(d.title) + '</h1><p>' + esc(d.lead) + '</p></div></section>' +
+      '<section class="section"><div class="container sp-grid">' +
+        '<div><p class="eyebrow">Ce qui est inclus</p><ul class="incl">' + d.incl.map(function(x){ return '<li><div><b>' + esc(x[0]) + '</b><span>' + esc(x[1]) + '</span></div></li>'; }).join('') + '</ul>' +
+          '<p class="eyebrow" style="margin-top:36px">Questions</p><div class="faq">' + d.faq.map(function(q){ return '<details><summary>' + esc(q[0]) + '</summary><p>' + esc(q[1]) + '</p></details>'; }).join('') + '</div></div>' +
+        '<aside class="tool">' + TOOLS[d.tool]() + '</aside>' +
+      '</div></section>' +
+      '<section class="section section--soft"><div class="container"><p class="eyebrow">Autres services</p><div class="others">' +
+        others.map(function(k){ return '<a href="#' + k + '"><img src="img/' + SV[k].img + '.jpg" alt="" loading="lazy">' + esc(SV[k].title) + '</a>'; }).join('') +
+      '</div></div></section>';
+    wire(id, page);
+  }
+  function showHome(anchor){
+    page.hidden = true; home.hidden = false;
+    var el = anchor && document.getElementById(anchor);
+    if (el) setTimeout(function(){ el.scrollIntoView({behavior:'auto', block: anchor === 'reserver' ? 'start' : 'start'}); }, 0);
+  }
+  function route(){
+    var id = location.hash.slice(1);
+    if (SV[id]){ render(id); home.hidden = true; page.hidden = false; window.scrollTo(0, 0); }
+    else if (!page.hidden){ showHome(id); }
+  }
+  addEventListener('hashchange', route);
+  route();
+
 })();
 </script>
 </body>
