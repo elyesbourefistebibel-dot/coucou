@@ -6,6 +6,9 @@ window.I18N = {
 "@fl":["flight {x} tracked","الرحلة {x} متابَعة"],
 "L’excellence Mercedes, à chaque kilomètre":["Mercedes excellence, every mile of the way","تميّز مرسيدس في كل كيلومتر"],
 "Passer":["Skip","تخطي"],
+"Maquette · photos générées par IA":["Mockup · AI-generated photos","نموذج تجريبي · صور مولدة بالذكاء الاصطناعي"],
+"Aéroport de Lyon Saint-Exupéry":["Lyon Saint-Exupéry Airport","مطار ليون سانت إكزوبيري"],
+"Aéroport de Chambéry":["Chambéry Airport","مطار شامبيري"],
 "Services":["Services","الخدمات"],
 "Flotte":["Fleet","الأسطول"],
 "Destinations":["Destinations","الوجهات"],
@@ -239,8 +242,12 @@ window.I18N = {
 "@dp_h":["{n} hours","{n} ساعات"],
 "@dp_s":["Dedicated chauffeur, unlimited stops.","سائق مخصص وتوقفات غير محدودة."],
 "@pax":["passenger(s)","راكب"],
-"@book_mock":["Mockup: no request sent.","نموذج تجريبي: لم يُرسل أي طلب."],
-"@sign_ph":["Your name","اسمك"]
+"@book_mock":["Send it on WhatsApp to confirm your booking.","أرسل الطلب عبر واتساب لتأكيد الحجز."],
+"@sign_ph":["Your name","اسمك"],
+"@pr_title":["Estimated price","السعر التقديري"],
+"@pr_ret":["return","ذهاب وعودة"],
+"@pr_note":["Indicative price, confirmed when booking. Tolls and fuel included.","سعر تقديري يُؤكد عند الحجز. الرسوم والوقود مشمولة."],
+"@wa_send":["Send on WhatsApp","أرسل عبر واتساب"]
 };
 window.I18N_FR = {
 "@tf_on":"Suivi activé pour {x}. Votre chauffeur s’adapte à l’heure réelle d’arrivée.",
@@ -256,6 +263,10 @@ window.I18N_FR = {
 "@dp_s":"Chauffeur dédié, arrêts illimités.",
 "@pax":"passager(s)",
 "@fl":"vol {x} suivi",
-"@book_mock":"Maquette : aucune demande envoyée.",
-"@sign_ph":"Votre nom"
+"@book_mock":"Envoyez-la sur WhatsApp pour confirmer votre réservation.",
+"@sign_ph":"Votre nom",
+"@pr_title":"Prix estimé",
+"@pr_ret":"aller-retour",
+"@pr_note":"Prix indicatif, confirmé à la réservation. Péages et carburant inclus.",
+"@wa_send":"Envoyer sur WhatsApp"
 };
