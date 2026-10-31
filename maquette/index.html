@@ -131,7 +131,18 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 @media (max-width:560px){.svc{aspect-ratio:16/11}}
 
 
-.svc .more{display:inline-block;margin-top:10px;font-size:14px;font-weight:600;border-bottom:1px solid rgba(255,255,255,.6)}
+.svc .tx{padding-right:84px}
+.svc .go{position:absolute;right:18px;bottom:18px;z-index:3;width:52px;height:52px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 0 0 0 rgba(255,255,255,.7),0 0 24px rgba(255,255,255,.55);transition:transform .25s}
+.svc .go svg{width:22px;height:22px;stroke:#0F1B2D;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.svc:hover .go{transform:scale(1.1)}
+.svc::before{content:"";position:absolute;top:0;bottom:0;width:45%;left:-60%;z-index:2;background:linear-gradient(100deg,transparent,rgba(255,255,255,.22),transparent);transform:skewX(-18deg);pointer-events:none}
+@media (prefers-reduced-motion:no-preference){
+  .svc .go{animation:glow 2.2s ease-out infinite}
+  @keyframes glow{0%{box-shadow:0 0 0 0 rgba(255,255,255,.75),0 0 22px rgba(255,255,255,.5)}70%{box-shadow:0 0 0 16px rgba(255,255,255,0),0 0 30px rgba(255,255,255,.7)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0),0 0 22px rgba(255,255,255,.5)}}
+  .svc::before{animation:shine 5s ease-in-out infinite}
+  .svc:nth-child(2)::before{animation-delay:.8s}.svc:nth-child(3)::before{animation-delay:1.6s}.svc:nth-child(4)::before{animation-delay:2.4s}.svc:nth-child(5)::before{animation-delay:3.2s}.svc:nth-child(6)::before{animation-delay:4s}
+  @keyframes shine{0%,70%{left:-60%}100%{left:130%}}
+}
 /* service pages */
 .sp-hero{position:relative;min-height:340px;display:flex;align-items:flex-end;color:#fff;background:#0A0F18;overflow:hidden}
 .sp-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -196,11 +207,16 @@ input[type=range]{width:100%;accent-color:#0F1B2D}
 .dest button:hover{border-color:var(--ink)}
 
 /* steps */
-.steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.steps li{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px}
-.steps .n{width:36px;height:36px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:700;margin-bottom:14px}
+.steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:st}
+.steps li{position:relative;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.steps .ph{position:relative;aspect-ratio:4/3;max-width:100%}
+.steps .ph img{width:100%;height:100%;object-fit:cover}
+.steps .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.45))}
+.steps .n{position:absolute;left:18px;bottom:-26px;z-index:2;width:56px;height:56px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:700;font-size:22px;border:4px solid var(--card);box-shadow:0 8px 20px -6px rgba(15,27,45,.5)}
+.steps .bd{padding:38px 22px 24px}
 .steps p{color:var(--muted);font-size:15px;margin-top:6px}
-@media (max-width:760px){.steps{grid-template-columns:1fr}}
+.steps .tag{display:inline-block;margin-top:14px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--soft);border-radius:999px;padding:6px 12px}
+@media (max-width:760px){.steps{grid-template-columns:1fr;gap:28px}.steps .ph{aspect-ratio:16/10}}
 
 /* faq */
 .faq{max-width:780px;display:grid;gap:10px}
@@ -312,12 +328,12 @@ footer .logo{color:#fff}
         <p>Particuliers, entreprises ou délégations : un seul interlocuteur du départ à l’arrivée.</p>
       </div>
       <div class="grid3">
-        <a class="svc" href="#transferts"><img src="img/svc-aeroport.jpg" alt="Chauffeur ouvrant la porte d'une Mercedes à l'aéroport" loading="lazy"><div class="tx"><h3>Transferts aéroport &amp; gare</h3><p>Genève, Lyon, Chambéry et toutes les gares des Alpes.</p><span class="more">Découvrir →</span></div></a>
-        <a class="svc" href="#stations-de-ski"><img src="img/svc-ski.jpg" alt="Mercedes Classe V devant une station de ski" loading="lazy"><div class="tx"><h3>Stations de ski</h3><p>Courchevel, Méribel, Val d’Isère, Megève, Chamonix…</p><span class="more">Découvrir →</span></div></a>
-        <a class="svc" href="#vip-delegations"><img src="img/svc-vip.jpg" alt="Convoi de trois Mercedes Classe S sur une route de montagne" loading="lazy"><div class="tx"><h3>Transport VIP &amp; délégations</h3><p>Convois multi-véhicules et transport protocolaire.</p><span class="more">Découvrir →</span></div></a>
-        <a class="svc" href="#meet-greet"><img src="img/svc-meet.jpg" alt="Chauffeur tenant une pancarte d'accueil à l'aéroport" loading="lazy"><div class="tx"><h3>Meet &amp; Greet</h3><p>Accueil à votre nom à l’arrivée, bagages pris en charge.</p><span class="more">Découvrir →</span></div></a>
-        <a class="svc" href="#conciergerie"><img src="img/svc-concierge.jpg" alt="Salon d'un chalet de luxe avec vue sur les montagnes" loading="lazy"><div class="tx"><h3>Conciergerie</h3><p>Hôtels, chalets, restaurants et activités réservés pour vous.</p><span class="more">Découvrir →</span></div></a>
-        <a class="svc" href="#mise-a-disposition"><img src="img/svc-dispo.jpg" alt="Banquette arrière en cuir d'une Mercedes Classe S la nuit" loading="lazy"><div class="tx"><h3>Mise à disposition</h3><p>Un chauffeur à l’heure ou à la journée.</p><span class="more">Découvrir →</span></div></a>
+        <a class="svc" href="#transferts"><img src="img/svc-aeroport.jpg" alt="Chauffeur ouvrant la porte d'une Mercedes à l'aéroport" loading="lazy"><div class="tx"><h3>Transferts aéroport &amp; gare</h3><p>Genève, Lyon, Chambéry et toutes les gares des Alpes.</p></div><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+        <a class="svc" href="#stations-de-ski"><img src="img/svc-ski.jpg" alt="Mercedes Classe V devant une station de ski" loading="lazy"><div class="tx"><h3>Stations de ski</h3><p>Courchevel, Méribel, Val d’Isère, Megève, Chamonix…</p></div><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+        <a class="svc" href="#vip-delegations"><img src="img/svc-vip.jpg" alt="Convoi de trois Mercedes Classe S sur une route de montagne" loading="lazy"><div class="tx"><h3>Transport VIP &amp; délégations</h3><p>Convois multi-véhicules et transport protocolaire.</p></div><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+        <a class="svc" href="#meet-greet"><img src="img/svc-meet.jpg" alt="Chauffeur tenant une pancarte au nom de M. Martin à l'aéroport" loading="lazy"><div class="tx"><h3>Meet &amp; Greet</h3><p>Accueil à votre nom à l’arrivée, bagages pris en charge.</p></div><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+        <a class="svc" href="#conciergerie"><img src="img/svc-concierge.jpg" alt="Salon d'un chalet de luxe avec vue sur les montagnes" loading="lazy"><div class="tx"><h3>Conciergerie</h3><p>Hôtels, chalets, restaurants et activités réservés pour vous.</p></div><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+        <a class="svc" href="#mise-a-disposition"><img src="img/svc-dispo.jpg" alt="Banquette arrière en cuir d'une Mercedes Classe S la nuit" loading="lazy"><div class="tx"><h3>Mise à disposition</h3><p>Un chauffeur à l’heure ou à la journée.</p></div><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
       </div>
     </div>
   </section>
@@ -374,9 +390,9 @@ footer .logo{color:#fff}
     <div class="container">
       <div class="head"><p class="eyebrow">Comment ça marche</p><h2>Simple comme 1, 2, 3</h2></div>
       <ol class="steps">
-        <li><span class="n">1</span><h3>Vous réservez</h3><p>En ligne, par téléphone ou sur WhatsApp.</p></li>
-        <li><span class="n">2</span><h3>Vous recevez votre prix</h3><p>Prix fixe confirmé, sans frais cachés.</p></li>
-        <li><span class="n">3</span><h3>Votre chauffeur vous attend</h3><p>À l’heure, avec une pancarte à votre nom.</p></li>
+        <li><div class="ph"><img src="img/step-1.jpg" alt="Réservation d'un chauffeur sur smartphone dans un salon d'hôtel" loading="lazy"><span class="n">1</span></div><div class="bd"><h3>Vous réservez</h3><p>En ligne, par téléphone ou sur WhatsApp.</p><span class="tag">2 minutes</span></div></li>
+        <li><div class="ph"><img src="img/step-2.jpg" alt="Voyageur lisant sa confirmation sur son téléphone en gare" loading="lazy"><span class="n">2</span></div><div class="bd"><h3>Vous recevez votre prix</h3><p>Prix fixe confirmé, sans frais cachés.</p><span class="tag">Réponse rapide</span></div></li>
+        <li><div class="ph"><img src="img/step-3.jpg" alt="Chauffeur ouvrant la portière d'une Mercedes Classe S devant un chalet" loading="lazy"><span class="n">3</span></div><div class="bd"><h3>Votre chauffeur vous attend</h3><p>À l’heure, avec une pancarte à votre nom.</p><span class="tag">Bon voyage</span></div></li>
       </ol>
     </div>
   </section>
