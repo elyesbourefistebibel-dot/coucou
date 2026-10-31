@@ -245,7 +245,7 @@ input[type=range]{width:100%;accent-color:#0F1B2D}
 #intro .mk .c{stroke-width:1.2;stroke-opacity:.45;stroke-dasharray:160;stroke-dashoffset:160}
 #intro .mk .m{stroke-width:3;stroke-dasharray:90;stroke-dashoffset:90}
 #intro .mk .r{stroke-width:2.4;stroke-dasharray:40;stroke-dashoffset:40}
-#intro.play .mk .c{animation:draw 1.3s .3s cubic-bezier(.6,0,.2,1) forwards}
+#intro.play .mk .c{animation:draw 1.3s .5s cubic-bezier(.6,0,.2,1) forwards}
 #intro.play .mk .m{animation:draw 1.1s .5s cubic-bezier(.6,0,.2,1) forwards}
 #intro.play .mk .r{animation:draw .8s 1.1s cubic-bezier(.6,0,.2,1) forwards}
 @keyframes draw{to{stroke-dashoffset:0}}
@@ -253,19 +253,55 @@ input[type=range]{width:100%;accent-color:#0F1B2D}
 #intro.play .word{animation:grow 2.4s 1s cubic-bezier(.16,.8,.2,1) forwards}
 @keyframes grow{0%{opacity:0;filter:blur(10px);letter-spacing:.05em;padding-left:.05em;transform:scale(.86)}60%{opacity:1;filter:blur(0)}100%{opacity:1;filter:blur(0);letter-spacing:.3em;padding-left:.3em;transform:scale(1)}}
 #intro .tag{font-size:clamp(11px,1.5vw,14px);letter-spacing:.2em;padding-left:.2em;opacity:0;color:rgba(255,255,255,.85)}
-#intro.play .tag{animation:tag 1.4s 2s ease-out forwards}
+#intro.play .tag{animation:tag 1.4s 2.3s ease-out forwards}
 @keyframes tag{to{opacity:1;letter-spacing:.7em;padding-left:.7em}}
 #intro .line{width:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.8),transparent)}
-#intro.play .line{animation:ln 1.6s 1.6s cubic-bezier(.2,.7,.2,1) forwards}
+#intro.play .line{animation:ln 1.6s 1.9s cubic-bezier(.2,.7,.2,1) forwards}
 @keyframes ln{to{width:min(70vw,520px)}}
 #intro.out .stage{animation:zoomout 1.1s cubic-bezier(.7,0,.3,1) forwards}
 @keyframes zoomout{to{transform:scale(3.2);opacity:0;filter:blur(6px)}}
 #intro.out{opacity:0;pointer-events:none}
+#intro .bar{position:absolute;left:0;right:0;height:11vh;background:#000;z-index:3;transition:transform 1.1s cubic-bezier(.77,0,.18,1)}
+@media (max-width:760px){#intro .bar{height:8vh}}
+#intro .bar.t{top:0}#intro .bar.b{bottom:0}
+#intro.out .bar.t{transform:translateY(-100%)}#intro.out .bar.b{transform:translateY(100%)}
+#intro .grain{position:absolute;inset:-50%;z-index:1;pointer-events:none;opacity:.08;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:gr .6s steps(4) infinite}
+@keyframes gr{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}}
+#intro .word{background:linear-gradient(100deg,#fff 0%,#fff 40%,#FFF3D6 50%,#fff 60%,#fff 100%);background-size:250% 100%;background-position:120% 0;-webkit-background-clip:text;background-clip:text;color:transparent}
+#intro.play .word{animation:grow 2.6s 1.2s cubic-bezier(.16,.8,.2,1) forwards,shine 1.6s 3.1s ease-in-out forwards}
+@keyframes shine{to{background-position:-30% 0}}
 #intro .skip{position:absolute;z-index:3;right:max(18px,env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));background:rgba(0,0,0,.25);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:999px;padding:8px 16px;font:500 13px var(--sans);cursor:pointer}
 html.intro-on body{overflow:hidden}
 html.intro-on .hero h1,html.intro-on .hero .lead,html.intro-on .hero .checks,html.intro-on .hero .book{opacity:0;transform:translateY(26px)}
 .hero h1,.hero .lead,.hero .checks,.hero .book{transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1.1s cubic-bezier(.2,.7,.2,1)}
 html.intro-done .hero .lead{transition-delay:.12s}html.intro-done .hero .checks{transition-delay:.22s}html.intro-done .hero .book{transition-delay:.3s}
+
+
+/* autocomplete + prix */
+.f{position:relative}
+.ac{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:30;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 40px -12px rgba(15,27,45,.35);padding:6px;max-height:320px;overflow:auto}
+.ac-it{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:0;border-radius:10px;padding:10px;color:var(--ink);font:inherit;cursor:pointer}
+.ac-it:hover,.ac-it.on{background:var(--soft)}
+.ac-it svg{width:18px;height:18px;flex:none;stroke:var(--muted);fill:none;stroke-width:2}
+.ac-it span{display:flex;flex-direction:column;min-width:0}
+.ac-it b{font-weight:600;font-size:15px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ac-it small{font-size:12px;color:var(--muted);font-weight:500}
+[dir="rtl"] .ac-it{text-align:right}
+.price{margin:2px 0 14px;padding:12px;border-radius:14px;background:var(--soft)}
+.pr-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:10px;font-weight:600;font-size:14px}
+.pr-h small{color:var(--muted);font-weight:500;font-size:12px}
+.pr-g{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.pr-it{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;cursor:pointer;transition:border-color .2s,transform .15s}
+.pr-it small{font-size:11px;color:var(--muted);white-space:nowrap}
+.pr-it b{font-size:15px;font-variant-numeric:tabular-nums}
+.pr-it.on{border-color:var(--navy);box-shadow:0 0 0 1px var(--navy)}
+:root[data-theme="dark"] .pr-it.on{border-color:#EEF1F5;box-shadow:0 0 0 1px #EEF1F5}
+.pr-n{font-size:11px;color:var(--muted);margin-top:8px}
+@media (max-width:400px){.pr-g{grid-template-columns:1fr 1fr}}
+.done{display:flex;flex-direction:column;gap:4px}
+.d-pr{font-weight:700}
+.btn--wa{margin-top:8px;background:#25D366;color:#fff;height:46px}
+.btn--wa:hover{background:#1EBE5A}
 
 /* fleet */
 .fleet{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
@@ -335,6 +371,8 @@ footer .logo{color:#fff}
   <div class="poster"></div>
   <video id="introVid" muted playsinline preload="auto"></video>
   <div class="veil"></div>
+  <div class="grain"></div>
+  <div class="bar t"></div><div class="bar b"></div>
   <div class="stage">
     <svg class="mk" viewBox="0 0 64 64"><circle class="c" cx="32" cy="32" r="25"/><path class="m" d="M13 41 L27 18 L33 28 L38 21 L51 41"/><path class="r" d="M18 48 C26 42, 38 50, 46 44"/></svg>
     <div class="word">ALPES LUXURY</div>
@@ -351,7 +389,7 @@ footer .logo{color:#fff}
   var v = document.getElementById('introVid');
   v.src = matchMedia('(max-width: 760px)').matches ? 'video/intro-m.mp4' : 'video/intro.mp4';
   var started = false, done = false;
-  function start(){ if (started) return; started = true; el.classList.add('play'); setTimeout(finish, 4300); }
+  function start(){ if (started) return; started = true; el.classList.add('play'); setTimeout(finish, 5600); }
   function finish(){
     if (done) return; done = true;
     el.classList.add('out');
@@ -424,6 +462,7 @@ footer .logo{color:#fff}
             <div class="in"><select id="car"><option value="Classe E">Classe E</option><option value="Classe V" selected>Classe V</option><option value="Classe S">Classe S</option><option value="Sprinter">Sprinter</option></select></div>
           </label>
         </div>
+        <div class="price" id="price" hidden></div>
         <button class="btn btn--full" type="submit">Recevoir mon prix</button>
         <div class="done" id="done" hidden></div>
       </form>
@@ -543,7 +582,7 @@ footer .logo{color:#fff}
         <p class="eyebrow">Contact</p>
         <h2>Une question ? Parlons-en.</h2>
         <ul class="clist">
-          <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2"/></svg></span><a href="tel:+33600000000">+33 6 00 00 00 00</a></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2"/></svg></span><a href="tel:+33648168969">06 48 16 89 69</a></li>
           <li><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>contact@alpesluxurytransfert.fr</li>
           <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>Savoie, Haute-Savoie, Genève</li>
         </ul>
@@ -564,10 +603,10 @@ footer .logo{color:#fff}
 <div id="svcpage" hidden></div>
 
 <footer>
-  <div class="container"><a class="logo" href="#top"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="25" fill="none" stroke="currentColor" stroke-opacity=".3" stroke-width="1.4"/><path d="M13 41 L27 18 L33 28 L38 21 L51 41" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/><path d="M24 23.2 L27 18 L30.2 23.4 L27.6 22 Z" fill="currentColor"/><path d="M18 48 C26 42, 38 50, 46 44" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg><span><b>ALPES LUXURY</b><small>TRANSFERT</small></span></a><span>© 2026 Alpes Luxury Transfert</span><span>Maquette · photos générées par IA · coordonnées fictives</span></div>
+  <div class="container"><a class="logo" href="#top"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="25" fill="none" stroke="currentColor" stroke-opacity=".3" stroke-width="1.4"/><path d="M13 41 L27 18 L33 28 L38 21 L51 41" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/><path d="M24 23.2 L27 18 L30.2 23.4 L27.6 22 Z" fill="currentColor"/><path d="M18 48 C26 42, 38 50, 46 44" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg><span><b>ALPES LUXURY</b><small>TRANSFERT</small></span></a><span>© 2026 Alpes Luxury Transfert</span><span>Maquette · photos générées par IA</span></div>
 </footer>
 
-<a class="wa" href="https://wa.me/33600000000" aria-label="Nous écrire sur WhatsApp">
+<a class="wa" href="https://wa.me/33648168969" aria-label="Nous écrire sur WhatsApp">
   <svg viewBox="0 0 32 32"><path d="M16 3C9 3 3.3 8.6 3.3 15.6c0 2.4.7 4.7 1.9 6.7L3 29l6.9-2.1c1.9 1 4 1.6 6.1 1.6 7 0 12.7-5.7 12.7-12.7S23 3 16 3zm0 23.2c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1.2 1.2-4-.3-.4a10.4 10.4 0 0 1-1.6-5.6C5.4 9.8 10.1 5.2 16 5.2s10.6 4.7 10.6 10.5S21.9 26.2 16 26.2zm5.8-7.8c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2l-1 1.2c-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.6-1.6-1-.8-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.6l.5-.6.3-.5c.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5 2.5 1 3 .8 3.6.7.6-.1 1.9-.8 2.1-1.5.3-.7.3-1.3.2-1.5-.1-.1-.3-.2-.6-.3z"/></svg>
 </a>
 
@@ -616,6 +655,7 @@ footer .logo{color:#fff}
       document.getElementById('done').hidden = true;
       if (!document.getElementById('svcpage').hidden && typeof route === 'function') route();
       applyLang();
+      if (window.__syncAddr) window.__syncAddr();
     });
   });
 
@@ -707,12 +747,145 @@ footer .logo{color:#fff}
   tRet.addEventListener('click', function(){ setTab(true); });
 
   var car = document.getElementById('car'), to = document.getElementById('to');
+  /* ===== Adresses : propositions + prix indicatifs ===== */
+  var PLACES = [
+    ['Aéroport de Genève','Aéroport',46.2381,6.1090],['Aéroport de Lyon Saint-Exupéry','Aéroport',45.7256,5.0811],
+    ['Aéroport de Chambéry','Aéroport',45.6381,5.8803],['Gare de Genève Cornavin','Gare',46.2102,6.1424],
+    ['Gare de Moûtiers','Gare',45.4846,6.5313],['Gare de Bourg-Saint-Maurice','Gare',45.6185,6.7695],
+    ['Gare d’Annecy','Gare',45.9020,6.1218],['Gare de Lyon Part-Dieu','Gare',45.7606,4.8597],
+    ['Courchevel 1850','Station de ski',45.4154,6.6346],['Courchevel 1650 Moriond','Station de ski',45.4089,6.6500],
+    ['Méribel','Station de ski',45.3967,6.5656],['Val Thorens','Station de ski',45.2979,6.5800],
+    ['Les Menuires','Station de ski',45.3233,6.5378],['Val d’Isère','Station de ski',45.4481,6.9806],
+    ['Tignes','Station de ski',45.4689,6.9061],['Les Arcs','Station de ski',45.5725,6.8297],
+    ['La Plagne','Station de ski',45.5070,6.6773],['Megève','Station de ski',45.8567,6.6175],
+    ['Chamonix-Mont-Blanc','Station de ski',45.9237,6.8694],['Saint-Gervais-les-Bains','Station de ski',45.8920,6.7125],
+    ['Les Gets','Station de ski',46.1586,6.6700],['Morzine','Station de ski',46.1792,6.7089],
+    ['Avoriaz','Station de ski',46.1919,6.7740],['Flaine','Station de ski',46.0058,6.6893],
+    ['La Clusaz','Station de ski',45.9047,6.4237],['Verbier','Station de ski · Suisse',46.0961,7.2286],
+    ['Crans-Montana','Station de ski · Suisse',46.3110,7.4810],['Zermatt (gare de Täsch)','Station de ski · Suisse',46.0690,7.7790],
+    ['Annecy centre','Ville',45.8992,6.1294],['Lyon centre','Ville',45.7640,4.8357],['Genève centre','Ville',46.2044,6.1432],
+    ['Chambéry centre','Ville',45.5646,5.9178]
+  ];
+  var RATES = {'Classe E':[2.3,90],'Classe V':[2.7,110],'Classe S':[3.6,160],'Sprinter':[4.2,220]};
+  function norm(t){ return (t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[’']/g,' '); }
+  function km(a, b){
+    var R = 6371, r = Math.PI/180, dLa = (b[0]-a[0])*r, dLo = (b[1]-a[1])*r;
+    var h = Math.sin(dLa/2)*Math.sin(dLa/2) + Math.cos(a[0]*r)*Math.cos(b[0]*r)*Math.sin(dLo/2)*Math.sin(dLo/2);
+    return 2*R*Math.asin(Math.sqrt(h)) * 1.38; /* distance route ≈ vol d'oiseau × 1,38 */
+  }
+  function findLocal(v){
+    var n = norm(v).trim(); if (!n) return null;
+    for (var i = 0; i < PLACES.length; i++) if (norm(PLACES[i][0]) === n || norm(tr(PLACES[i][0])) === n) return [PLACES[i][2], PLACES[i][3]];
+    if (n.length >= 4) for (var j = 0; j < PLACES.length; j++) if (norm(PLACES[j][0]).indexOf(n) === 0 || norm(tr(PLACES[j][0])).indexOf(n) === 0) return [PLACES[j][2], PLACES[j][3]];
+    return null;
+  }
+
+  function autocomplete(input){
+    var box = document.createElement('div'); box.className = 'ac'; box.hidden = true; box.setAttribute('role','listbox');
+    input.closest('.f').appendChild(box);
+    input.setAttribute('autocomplete','off');
+    var timer = null, items = [], active = -1, seq = 0;
+    function render(list){
+      items = list; active = -1; box.innerHTML = '';
+      if (!list.length){ box.hidden = true; return; }
+      list.forEach(function(it, i){
+        var b = document.createElement('button'); b.type = 'button'; b.className = 'ac-it'; b.setAttribute('role','option');
+        b.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span><b></b><small></small></span>';
+        b.querySelector('b').textContent = it.name; b.querySelector('small').textContent = it.sub;
+        b.addEventListener('mousedown', function(e){ e.preventDefault(); pick(i); });
+        box.appendChild(b);
+      });
+      box.hidden = false;
+    }
+    function pick(i){
+      var it = items[i]; if (!it) return;
+      input.value = it.name; input._ll = it.ll; box.hidden = true; updatePrice();
+    }
+    function local(q){
+      var n = norm(q).trim(); if (!n) return PLACES.slice(0, 6).map(toIt);
+      return PLACES.filter(function(p){ return norm(p[0] + ' ' + p[1]).indexOf(n) > -1; }).slice(0, 6).map(toIt);
+    }
+    function toIt(p){ return {name: p[0], sub: p[1], ll: [p[2], p[3]]}; }
+    input.addEventListener('input', function(){
+      input._ll = findLocal(input.value); updatePrice();
+      var q = input.value, mine = ++seq, loc = local(q);
+      render(loc);
+      clearTimeout(timer);
+      if (q.trim().length < 3) return;
+      timer = setTimeout(function(){
+        fetch('https://photon.komoot.io/api/?limit=6&lang=fr&lat=45.9&lon=6.5&q=' + encodeURIComponent(q))
+          .then(function(r){ return r.json(); })
+          .then(function(d){
+            if (mine !== seq) return;
+            var web = (d.features || []).map(function(f){
+              var p = f.properties || {}, c = f.geometry.coordinates;
+              var name = [p.name, p.housenumber && p.street ? p.housenumber + ' ' + p.street : p.street].filter(Boolean).join(', ') || p.city;
+              var sub = [p.postcode, p.city || p.county, p.country].filter(Boolean).join(' · ');
+              return {name: name, sub: sub, ll: [c[1], c[0]]};
+            }).filter(function(x){ return x.name; });
+            render(loc.slice(0, 3).concat(web).slice(0, 7));
+          }).catch(function(){ /* hors ligne ou bloqué : on garde les propositions locales */ });
+      }, 250);
+    });
+    input.addEventListener('focus', function(){ render(local(input.value)); });
+    input.addEventListener('blur', function(){ setTimeout(function(){ box.hidden = true; }, 150); });
+    input.addEventListener('keydown', function(e){
+      if (box.hidden) return;
+      var bs = box.querySelectorAll('.ac-it');
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp'){
+        e.preventDefault(); active = (active + (e.key === 'ArrowDown' ? 1 : -1) + bs.length) % bs.length;
+        bs.forEach(function(b, i){ b.classList.toggle('on', i === active); });
+      } else if (e.key === 'Enter' && active > -1){ e.preventDefault(); pick(active); }
+      else if (e.key === 'Escape'){ box.hidden = true; }
+    });
+    input._ll = findLocal(input.value);
+  }
+  var fromIn = document.getElementById('from');
+  autocomplete(fromIn); autocomplete(to);
+
+  var priceBox = document.getElementById('price');
+  function prices(){
+    if (!fromIn._ll || !to._ll) return null;
+    var d = Math.max(5, km(fromIn._ll, to._ll)), ret = !document.getElementById('retRow').hidden, out = {};
+    Object.keys(RATES).forEach(function(k){
+      var p = Math.max(RATES[k][1], d * RATES[k][0]); if (ret) p *= 2;
+      out[k] = Math.round(p / 5) * 5;
+    });
+    return {d: Math.round(d), p: out, ret: ret};
+  }
+  function updatePrice(){
+    var r = prices();
+    if (!r){ priceBox.hidden = true; return; }
+    priceBox.innerHTML = '';
+    var h = document.createElement('div'); h.className = 'pr-h';
+    h.innerHTML = '<span></span><small></small>';
+    h.querySelector('span').textContent = T('@pr_title');
+    h.querySelector('small').textContent = '≈ ' + r.d + ' km' + (r.ret ? ' · ' + T('@pr_ret') : '');
+    priceBox.appendChild(h);
+    var g = document.createElement('div'); g.className = 'pr-g';
+    Object.keys(r.p).forEach(function(k){
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'pr-it' + (car.value === k ? ' on' : '');
+      b.innerHTML = '<small></small><b></b>';
+      b.querySelector('small').textContent = tr(k); b.querySelector('b').textContent = r.p[k].toLocaleString('fr-FR') + ' €';
+      b.addEventListener('click', function(){ car.value = k; updatePrice(); });
+      g.appendChild(b);
+    });
+    priceBox.appendChild(g);
+    var n = document.createElement('p'); n.className = 'pr-n'; n.textContent = T('@pr_note');
+    priceBox.appendChild(n);
+    priceBox.hidden = false;
+  }
+  car.addEventListener('change', updatePrice);
+  document.getElementById('t-one').addEventListener('click', updatePrice);
+  document.getElementById('t-ret').addEventListener('click', updatePrice);
+  window.__updatePrice = updatePrice;
+  window.__syncAddr = function(){ fromIn._ll = findLocal(fromIn.value); to._ll = findLocal(to.value); updatePrice(); };
   function goBook(){ document.getElementById('book').scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'center'}); }
   document.querySelectorAll('.car').forEach(function(c){
     c.querySelector('button').addEventListener('click', function(){ car.value = c.dataset.car; goBook(); });
   });
   document.querySelectorAll('.dest button').forEach(function(b){
-    b.addEventListener('click', function(){ to.value = b.textContent; goBook(); setTimeout(function(){ to.focus({preventScroll:true}); }, 400); });
+    b.addEventListener('click', function(){ to.value = b.textContent; window.__syncAddr(); goBook(); setTimeout(function(){ to.focus({preventScroll:true}); }, 400); });
   });
 
   document.getElementById('book').addEventListener('submit', function(e){
@@ -725,7 +898,14 @@ footer .logo{color:#fff}
     var b = document.createElement('b'); b.textContent = tr(car.value) + ' · ' + document.getElementById('pax').value + ' ' + T('@pax');
     var fv = document.getElementById('flight').value.trim().toUpperCase();
     var s = document.createElement('span'); s.textContent = from + ' → ' + dest + ' · ' + when + (fv ? ' · ' + T('@fl', {x: fv}) : '') + '. ' + T('@book_mock');
-    d.append(b, s); d.hidden = false;
+    d.append(b, s);
+    var r = prices();
+    if (r){ var pp = document.createElement('span'); pp.className = 'd-pr'; pp.textContent = T('@pr_title') + ' : ' + r.p[car.value].toLocaleString('fr-FR') + ' €'; d.append(pp); }
+    var msg = 'Bonjour, je souhaite réserver un transfert :\n' + from + ' → ' + dest + '\n' + when + (fv ? '\nVol / train : ' + fv : '') + '\nVéhicule : ' + car.value + ' · ' + document.getElementById('pax').value + ' passager(s)' + (r ? '\nPrix indicatif : ' + r.p[car.value] + ' €' : '');
+    var wa = document.createElement('a'); wa.className = 'btn btn--wa'; wa.target = '_blank'; wa.rel = 'noopener';
+    wa.href = 'https://wa.me/33648168969?text=' + encodeURIComponent(msg);
+    wa.textContent = T('@wa_send');
+    d.append(wa); d.hidden = false;
   });
   var flight = document.getElementById('flight'), flOk = document.getElementById('flOk');
   flight.addEventListener('input', function(){ flOk.hidden = flight.value.trim().length < 3; });
@@ -867,6 +1047,7 @@ footer .logo{color:#fff}
         if (book.from) fromEl.value = book.from;
         if (book.to) to.value = book.to;
         if (book.car) car.value = book.car;
+        if (window.__syncAddr) window.__syncAddr();
         if (book.flight){ var fe = document.getElementById('flight'); fe.value = book.flight; fe.dispatchEvent(new Event('input')); }
         showHome('reserver');
         if (location.hash !== '#reserver') history.replaceState(null, '', '#reserver');
