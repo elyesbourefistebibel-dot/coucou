@@ -4,6 +4,8 @@ window.I18N = {
 "PH:ex. EZS 1452 (facultatif)":["e.g. EZS 1452 (optional)","مثال: EZS 1452 (اختياري)"],
 "Suivi activé : votre chauffeur s’adapte à l’heure réelle d’arrivée.":["Tracking on: your chauffeur adjusts to the actual arrival time.","تم تفعيل التتبع: يتكيف سائقك مع موعد الوصول الفعلي."],
 "@fl":["flight {x} tracked","الرحلة {x} متابَعة"],
+"L’excellence Mercedes, à chaque kilomètre":["Mercedes excellence, every mile of the way","تميّز مرسيدس في كل كيلومتر"],
+"Passer":["Skip","تخطي"],
 "Services":["Services","الخدمات"],
 "Flotte":["Fleet","الأسطول"],
 "Destinations":["Destinations","الوجهات"],

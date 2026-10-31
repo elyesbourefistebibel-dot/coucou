@@ -230,6 +230,42 @@ input[type=range]{width:100%;accent-color:#0F1B2D}
   @keyframes sweep{to{left:140%}}
 }
 
+
+/* ===== Intro ===== */
+#intro{position:fixed;inset:0;z-index:200;display:grid;place-items:center;pointer-events:auto;color:#fff}
+#intro .half{position:absolute;left:0;right:0;height:50.5%;background:radial-gradient(120% 90% at 50% 100%,#16243A 0%,#0A101B 60%,#05080E 100%);transition:transform 1s cubic-bezier(.77,0,.18,1)}
+#intro .half.t{top:0;background:radial-gradient(120% 90% at 50% 100%,#16243A 0%,#0A101B 60%,#05080E 100%)}
+#intro .half.b{bottom:0;background:radial-gradient(120% 90% at 50% 0%,#16243A 0%,#0A101B 60%,#05080E 100%)}
+#intro.open .half.t{transform:translateY(-101%)}
+#intro.open .half.b{transform:translateY(101%)}
+#intro .stage{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:clamp(14px,2.4vw,22px);transition:opacity .5s,transform .8s cubic-bezier(.77,0,.18,1)}
+#intro.open .stage{opacity:0;transform:scale(1.06)}
+#intro .mk{width:clamp(78px,12vw,112px);height:auto;overflow:visible}
+#intro .mk path,#intro .mk circle{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round}
+#intro .mk .c{stroke-width:1.2;stroke-opacity:.35;stroke-dasharray:160;stroke-dashoffset:160;animation:draw 1.2s .15s cubic-bezier(.6,0,.2,1) forwards}
+#intro .mk .m{stroke-width:3;stroke-dasharray:90;stroke-dashoffset:90;animation:draw 1s .35s cubic-bezier(.6,0,.2,1) forwards}
+#intro .mk .r{stroke-width:2.4;stroke-dasharray:40;stroke-dashoffset:40;animation:draw .7s 1s cubic-bezier(.6,0,.2,1) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+#intro .word{position:relative;font-weight:600;letter-spacing:.28em;font-size:clamp(24px,5.4vw,52px);line-height:1;white-space:nowrap;padding-left:.28em}
+#intro .word .dim{color:rgba(255,255,255,.08)}
+#intro .word .lit{position:absolute;inset:0;padding-left:inherit;color:#fff;text-shadow:0 0 24px rgba(255,236,200,.55);clip-path:inset(-60% 100% -60% -10%);animation:lit 1.5s 1.25s cubic-bezier(.45,.05,.2,1) forwards}
+@keyframes lit{to{clip-path:inset(-60% -10% -60% -10%)}}
+#intro .road{position:relative;width:100%;height:clamp(40px,6vw,56px)}
+#intro .road::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);transform:scaleX(0);animation:line .9s .9s ease-out forwards}
+@keyframes line{to{transform:scaleX(1)}}
+#intro .icar{position:absolute;bottom:4px;left:0;width:clamp(96px,13vw,150px);transform:translateX(-100%);animation:drive 1.5s 1.25s cubic-bezier(.45,.05,.2,1) forwards}
+@keyframes drive{to{transform:translateX(calc(var(--w,600px) - 100%))}}
+#intro .icar svg{display:block;width:100%;height:auto;overflow:visible}
+#intro .beam{position:absolute;left:96%;bottom:28%;width:220%;height:120%;background:linear-gradient(90deg,rgba(255,240,205,.55),rgba(255,240,205,0));clip-path:polygon(0 42%,100% 0,100% 100%,0 58%);filter:blur(2px);transform-origin:left center}
+#intro .tag{font-size:clamp(11px,1.6vw,14px);letter-spacing:.6em;padding-left:.6em;opacity:0;animation:tag .9s 2.35s ease-out forwards;color:rgba(255,255,255,.75)}
+@keyframes tag{from{opacity:0;letter-spacing:.2em}to{opacity:1;letter-spacing:.6em}}
+#intro .skip{position:absolute;z-index:3;right:max(18px,env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));background:none;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.8);border-radius:999px;padding:8px 16px;font:500 13px var(--sans);cursor:pointer;transition:opacity .4s}
+#intro.open .skip{opacity:0}
+html.intro-on body{overflow:hidden}
+html.intro-on .hero h1,html.intro-on .hero .lead,html.intro-on .hero .checks,html.intro-on .hero .book{opacity:0;transform:translateY(26px)}
+.hero h1,.hero .lead,.hero .checks,.hero .book{transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1.1s cubic-bezier(.2,.7,.2,1)}
+html.intro-done .hero .lead{transition-delay:.12s}html.intro-done .hero .checks{transition-delay:.22s}html.intro-done .hero .book{transition-delay:.3s}
+
 /* fleet */
 .fleet{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .car{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
@@ -294,6 +330,39 @@ footer .logo{color:#fff}
 </style>
 </head>
 <body>
+<div id="intro" aria-hidden="true" hidden>
+  <div class="half t"></div><div class="half b"></div>
+  <div class="stage">
+    <svg class="mk" viewBox="0 0 64 64"><circle class="c" cx="32" cy="32" r="25"/><path class="m" d="M13 41 L27 18 L33 28 L38 21 L51 41"/><path class="r" d="M18 48 C26 42, 38 50, 46 44"/></svg>
+    <div class="word" id="introWord"><span class="dim">ALPES LUXURY</span><span class="lit">ALPES LUXURY</span>
+      <div class="road"><div class="icar"><span class="beam"></span>
+        <svg viewBox="0 0 200 56"><path d="M6 44 C6 38 10 35 20 34 L56 30 C70 19 86 14 106 14 C128 14 144 19 158 28 L186 32 C194 33 197 37 197 42 L196 45 L176 45 A12 12 0 0 0 152 45 L62 45 A12 12 0 0 0 38 45 Z" fill="#0B1220" stroke="rgba(255,255,255,.9)" stroke-width="1.3"/><path d="M64 30 C76 21 90 18 106 18 C124 18 138 22 150 29 Z" fill="rgba(160,190,230,.18)" stroke="rgba(255,255,255,.55)" stroke-width="1"/><path d="M104 18 L104 30 M20 38 L186 38" stroke="rgba(255,255,255,.35)" stroke-width=".8"/><circle cx="50" cy="45" r="9" fill="#05080E" stroke="#fff" stroke-width="1.2"/><circle cx="164" cy="45" r="9" fill="#05080E" stroke="#fff" stroke-width="1.2"/><circle cx="50" cy="45" r="4" fill="none" stroke="rgba(255,255,255,.5)"/><circle cx="164" cy="45" r="4" fill="none" stroke="rgba(255,255,255,.5)"/><rect x="186" y="34" width="9" height="3" rx="1.5" fill="#FFF3D6"/><rect x="5" y="36" width="5" height="3" rx="1.5" fill="#E0413A"/></svg>
+      </div></div>
+    </div>
+    <div class="tag">TRANSFERT</div>
+  </div>
+  <button class="skip" type="button" id="introSkip">Passer</button>
+</div>
+<script>
+(function(){
+  var el = document.getElementById('intro'), root = document.documentElement;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  el.hidden = false; root.classList.add('intro-on');
+  var w = document.getElementById('introWord');
+  function setW(){ w.style.setProperty('--w', w.offsetWidth + 'px'); var car = w.querySelector(".icar"); car.style.setProperty('--w', w.offsetWidth + 'px'); }
+  setW();
+  var done = false;
+  function finish(){
+    if (done) return; done = true;
+    el.classList.add('open');
+    root.classList.remove('intro-on'); root.classList.add('intro-done');
+    setTimeout(function(){ el.remove(); }, 1100);
+  }
+  setTimeout(finish, 3700);
+  document.getElementById('introSkip').addEventListener('click', finish);
+  el.addEventListener('click', function(e){ if (e.target === el || e.target.classList.contains('half')) finish(); });
+})();
+</script>
 
 <div class="aurora" aria-hidden="true"></div>
 <header class="header" id="top">
@@ -391,7 +460,7 @@ footer .logo{color:#fff}
     <div class="container">
       <div class="head">
         <p class="eyebrow">Notre flotte</p>
-        <h2>Des Mercedes récentes, toutes noires</h2>
+        <h2>L’excellence Mercedes, à chaque kilomètre</h2>
       </div>
       <div class="fleet">
         <article class="car" data-car="Classe E">
